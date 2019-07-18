@@ -1,8 +1,8 @@
-# React Hooks ToDo
+# Critter Manager
 
 ## Purpose
 
-To demonstrate usage of react hooks
+Simple idle game built using react technologies
 
 ## Docker
 
