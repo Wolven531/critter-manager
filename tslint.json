@@ -1,0 +1,36 @@
+{
+	"defaultSeverity": "error",
+	"extends": [
+		"tslint:recommended"
+	],
+	"env": {
+		"browser": true,
+		"jasmine": true,
+		"jest": true
+	},
+	"jsRules": true,
+	"rules": {
+		"indent": {
+			"options": "tabs",
+			"severity": "error"
+		},
+		"object-literal-key-quotes": false,
+		"quotemark": {
+			"options": ["jsx-double", "single"],
+			"severity": "error"
+		},
+		"semicolon": {
+			"options": "never",
+			"severity": "error"
+		},
+		"trailing-comma": {
+			"options":{
+				"multiline": "never",
+				"singleline": "never"
+			},
+			"severity": "error"
+		}
+	},
+	"rulesDirectory": [],
+	"linterOptions": {}
+}

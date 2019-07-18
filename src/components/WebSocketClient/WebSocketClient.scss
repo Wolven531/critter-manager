@@ -1,0 +1,41 @@
+.websocket-client {
+	background-color: rgba(0, 0, 0, .25);
+	border: 2px solid #333;
+	display: flex;
+	flex-direction: column;
+	padding: 1em;
+
+	button {
+		display: inline-block;
+		line-height: 2em;
+		padding: .5em;
+	}
+
+	h1 {
+		font-size: 2em;
+		margin: 0 auto;
+		padding: 0;
+	}
+
+	h2, section {
+		text-align: center;
+	}
+
+	input {
+		display: inline-block;
+		line-height: 2em;
+		margin-right: 1em;
+		text-indent: 10px;
+		width: 18em;
+	}
+
+	textarea {
+		border: 2px solid #333;
+		font-family: 'Courier New', Courier, monospace;
+		margin: 0 auto;
+		max-width: 100%;// for backwards compat
+		max-width: calc(100% - 2em - 4px);
+		overflow: auto;
+		padding: 1em;
+	}
+}

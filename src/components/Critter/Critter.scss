@@ -1,0 +1,50 @@
+.critter {
+	background-color: rgba(0,0,0,.25);
+	/* background-image: radial-gradient(red, orange, yellow, green, blue, purple); */
+	border: 1px solid #000;
+	color: #000;
+	display: grid;
+	/* min-width: 150px; */
+	/* overflow: hidden; */
+	transition-delay: 0s;
+	transition-duration: 1s;
+	transition-property: all;
+
+	&.selected {
+		background-color: rgba(0,255,0,.8);
+		/* background-image: radial-gradient(white, lime, green); */
+
+		tbody td {
+			color: #070;
+		}
+	}
+
+	tbody {
+		background-color: rgba(255, 255, 255, .67);
+		border: 2px solid #fff;
+		color: #000;
+		font-weight: bold;
+
+		td {
+			padding: .2em;
+
+			&:first-child {
+				text-indent: .3em;
+			}
+
+			&:nth-of-type(2) {
+				text-align: right;
+			}
+		}
+	}
+
+	thead td {
+		background-color: rgba(255, 255, 255, 1);
+		color: #333;
+		font-size: .4em;
+		font-weight: bolder;
+		text-shadow: rgba(0,0,0,.3) 1px 1px;
+		word-break: keep-all;
+		word-wrap: none;
+	}
+}

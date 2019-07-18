@@ -1,0 +1,14 @@
+.critter-list {
+	margin: 2em;
+
+	.display-container {
+		/* align-items: center; */
+		border: 1px solid #000;
+		display: grid;
+		grid-gap: .25em;
+		grid-template-columns: repeat(4, 1fr);
+		/* justify-items: center; */
+		/* justify-content: space-between; */
+		overflow: auto;
+	}
+}

@@ -1,0 +1,65 @@
+.critter-list-controls {
+	display: grid;
+	margin-bottom: 1em;
+
+	button {
+		color: #fff;
+		padding: .5em;
+		transition-delay: 0s;
+		transition-duration: 1s;
+		transition-property: all;
+
+		&:hover {
+			color: #333;
+			font-size: 1.25em;
+		}
+	}
+
+	.combat {
+		background-color: rgba(180, 0, 171, 0.67);
+		border: 1px solid #707;
+
+		&:hover {
+			background-color: rgba(255, 0, 255, .67);
+			color: #fff;
+		}
+
+		&[disabled] {
+			background-color: rgba(50, 50, 50, .67);
+			border: 1px solid #333;
+
+			&:hover {
+				background-color: rgba(100, 100, 100, .67);
+				color: #555;
+			}
+		}
+	}
+
+	.create {
+		background-color: rgba(0, 180, 0, .67);
+		border: 1px solid #070;
+
+		&:hover {
+			background-color: rgba(0, 255, 0, .67);
+		}
+	}
+
+	.delete {
+		background-color: rgba(180, 0, 0, .67);
+		border: 1px solid #700;
+
+		&:hover {
+			background-color: rgba(255, 0, 0, .67);
+			color: #ff0;
+		}
+	}
+
+	.update {
+		background-color: rgba(0, 0, 180, .67);
+		border: 1px solid #007;
+
+		&:hover {
+			background-color: rgba(0, 255, 255, .67);
+		}
+	}
+}
