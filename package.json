@@ -2,10 +2,10 @@
 	"author": {
 		"email": "anthony.williams.cs@gmail.com",
 		"name": "Anthony Williams",
-		"url": "https://github.com/Wolven531/react-hooks-todo"
+		"url": "https://github.com/Wolven531/critter-manager"
 	},
-	"name": "react-hooks-todo",
-	"version": "0.3.0",
+	"name": "critter-manager",
+	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
 		"bfj": "6.1.1",
