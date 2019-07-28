@@ -38,18 +38,10 @@ describe('Shallow render App component', () => {
 		wrapperApp = shallow(<App/>)
 	})
 
-	it('shallow renders WebSocketClient, MoneyControls, and CritterList', () => {
+	it('shallow renders', () => {
 		wrapperApp.update()
 
 		expect(wrapperApp.exists()).toBe(true)
-
-		const webSocketClient = wrapperApp.find(WebSocketClient)
-		const moneyControls = wrapperApp.find(MoneyControls)
-		const critterList = wrapperApp.find(CritterList)
-
-		expect(webSocketClient.exists()).toBe(true)
-		expect(moneyControls.exists()).toBe(true)
-		expect(critterList.exists()).toBe(true)
 	})
 })
 
@@ -69,19 +61,11 @@ describe('Mount and render App component', () => {
 		wrapperApp.unmount()
 	})
 
-	it('mounts and renders WebSocketClient, MoneyControls, and CritterList', () => {
+	it('mounts and renders', () => {
 		// expect(spyComponentDidMount).toHaveBeenCalled()
 		wrapperApp.update()
 
 		expect(wrapperApp.exists()).toBe(true)
-
-		const webSocketClient = wrapperApp.find(WebSocketClient)
-		const moneyControls = wrapperApp.find(MoneyControls)
-		const critterList = wrapperApp.find(CritterList)
-
-		expect(webSocketClient.exists()).toBe(true)
-		expect(moneyControls.exists()).toBe(true)
-		expect(critterList.exists()).toBe(true)
 
 		expect(document.title).toBe('Critter Manager')
 	})
