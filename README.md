@@ -22,11 +22,11 @@ In the project directory, you can run
 
 ### Standard (Lifecycle) Scripts
 
-* `npm start`
-* `npm test`
+* `npm start` - Launch application on localhost
+* `npm test` - Run jest tests (w/ coverage and watching for changes)
 
 ### Non-Standard (Custom) Scripts
 
-* `npm run build`
-* `npm run lint`
-* `npm run test-debug`
+* `npm run build` - Produce production version of JS bundle
+* `npm run lint` - Check for any syntax optimizations
+* `npm run test-debug` - Same as `npm test` but w/ debugger attached
