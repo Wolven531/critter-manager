@@ -9,6 +9,7 @@ import {
 
 import { CritterList } from '../../views/CritterList/CritterList'
 import { MoneyControls } from '../MoneyControls/MoneyControls'
+import { PageNotFound } from '../PageNotFound/PageNotFound'
 import { WebSocketClient } from '../WebSocketClient/WebSocketClient'
 
 import { UpgradeStore } from '../../state/upgradeStore'
@@ -39,14 +40,24 @@ const App: FC = () => {
 		<article className="app">
 			<Router>
 				<div>
-					<Link to="/">Critter List</Link>{' '}
-					<Link to="/money">Money</Link>{' '}
-					<Link to="/webSocket">Web Socket</Link>{' '}
+					<Link to="/">Critter List</Link>
+					<br/>
+					<Link to="/money">Money</Link>
+					<br/>
+					<Link to="/webSocket">Web Socket</Link>
 					<Switch>
-						<Route exact={true} path="/" render={() => <CritterList currentMoney={moneyState.money} />} />
-						<Route path="/money" render={() => <MoneyControls moneyState={moneyState} upgradeStore={upgradeStore} />} />
-						<Route path="/webSocket" component={WebSocketClient} />
-						<Route render={() => <h1>Page not found</h1>} />
+						<Route exact={true} path="/">
+							<CritterList currentMoney={moneyState.money} />
+						</Route>
+						<Route path="/money">
+							<MoneyControls moneyState={moneyState} upgradeStore={upgradeStore} />
+						</Route>
+						<Route path="/webSocket">
+							<WebSocketClient />
+						</Route>
+						<Route>
+							<PageNotFound />
+						</Route>
 					</Switch>
 				</div>
 			</Router>
