@@ -20,6 +20,13 @@ In the project directory, you can run
 
 In the project directory, you can run
 
+### Standard (Lifecycle) Scripts
+
 * `npm start`
 * `npm test`
+
+### Non-Standard (Custom) Scripts
+
 * `npm run build`
+* `npm run lint`
+* `npm run test-debug`
