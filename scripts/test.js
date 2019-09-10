@@ -47,8 +47,9 @@ if (
 	argv.indexOf('--watchAll') === -1
 ) {
 	// https://github.com/facebook/create-react-app/issues/5210
-	const hasSourceControl = isInGitRepository() || isInMercurialRepository()
-	argv.push(hasSourceControl ? '--watch' : '--watchAll')
+	// TODO: maybe add back in watch here (if needed)
+	// const hasSourceControl = isInGitRepository() || isInMercurialRepository()
+	// argv.push(hasSourceControl ? '--watch' : '--watchAll')
 }
 
 // Jest doesn't have this option so we'll remove it
