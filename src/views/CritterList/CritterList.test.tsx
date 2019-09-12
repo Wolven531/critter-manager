@@ -38,10 +38,12 @@ describe('Shallow render CritterList', () => {
 describe('Mount and render CritterList', () => {
 	const fakeCritters = [new CritterModel('critter 1', 10, 2, 1)]
 	let mockLoadFromStorage: jest.Mock
-	let mockedUseCritterState: () => { critters: CritterModel[], loadFromStorage: () => void }
+	// let mockedUseCritterState: () => { critters: CritterModel[], loadFromStorage: () => void }
+	let mockedUseCritterState: jest.Mock
 	let wrapperCritterListPage: ReactWrapper<FC<ICritterListProps>>
 
 	beforeEach(() => {
+		jest.resetModules()
 		mockLoadFromStorage = jest.fn()
 		// mockedUseCritterState = jest.fn(() => {
 		// 	return {
@@ -49,12 +51,13 @@ describe('Mount and render CritterList', () => {
 		// 		loadFromStorage: mockLoadFromStorage
 		// 	}
 		// })
-		mockedUseCritterState = () => {
-			return {
-				critters: fakeCritters,
-				loadFromStorage: mockLoadFromStorage
-			}
-		}
+		//// mockedUseCritterState = jest.fn(() => {
+		//// 	return {
+		//// 		critters: fakeCritters,
+		//// 		loadFromStorage: mockLoadFromStorage
+		//// 	}
+		//// })
+		// mockedUseCritterState = (jest.genMockFromModule('../../state/useCritterState') as any).useCritterState
 		// mockedUseCritterState = jest.genMockFromModule('../../state/useCritterState')
 		// mockedUseCritterState.mockImplementation(jest.fn())
 		// jest.mock('../../state/useCritterState', () => {
@@ -66,16 +69,35 @@ describe('Mount and render CritterList', () => {
 		// })
 		// jest.mock('../../state/useCritterState')
 		// useCritterState = jest.fn()
-		jest.mock('../../state/useCritterState', () => { return mockedUseCritterState })
-		wrapperCritterListPage = mount(<CritterList currentMoney={0} />)
+		jest.mock('../../state/useCritterState', () => {
+			return {
+				useCritterState: jest.fn(() => {
+					// NOTE: need to require again to have access here
+					const CritterModel = require('../../model/Critter').Critter
+
+					return {
+						clearCritters: jest.fn(),
+						// critters: fakeCritters, // NOTE: invalid variable access?
+						critters: [new CritterModel('critter 1', 10, 2, 1)],
+						loadFromStorage: jest.fn(),
+						saveToLocalStorage: jest.fn(),
+						spawnCritter: jest.fn()
+					}
+				})
+			}
+		})
+		const CritterListWithMocks = require('./CritterList').CritterList;
+		wrapperCritterListPage = mount(<CritterListWithMocks currentMoney={0} />)
 		wrapperCritterListPage.hasClass('critter-list')
 
 		const displayContainer = wrapperCritterListPage.find('.display-container')
 		expect(displayContainer.exists()).toBe(true)
 	})
 
-	it('mounts and renders CritterList w/ no issues', () => {
+	fit('mounts and renders CritterList w/ no issues', () => {
 		wrapperCritterListPage.update()
+
+		console.log(wrapperCritterListPage.debug())
 
 		expect(wrapperCritterListPage.exists()).toBe(true)
 		// expect(wrapperCritterListPage.find(Critter)).toHaveLength(fakeCritters.length)
