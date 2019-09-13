@@ -12,7 +12,8 @@ import { CritterState } from '../../state/CritterState'
 import './CritterList.scss'
 
 export interface ICritterListProps {
-	currentMoney: number
+	// currentMoney: number
+	critterState: CritterState
 }
 
 class CritterList extends Component<ICritterListProps, {}> {
@@ -20,7 +21,8 @@ class CritterList extends Component<ICritterListProps, {}> {
 
 	constructor(props: ICritterListProps) {
 		super(props)
-		this.critterState = new CritterState(0, [])
+		// this.critterState = new CritterState(props.currentMoney, [])
+		this.critterState = props.critterState || new CritterState(0, [])
 	}
 
 	public componentDidMount() {
