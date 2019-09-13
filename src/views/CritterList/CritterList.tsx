@@ -30,9 +30,9 @@ class CritterList extends Component<ICritterListProps, {}> {
 	}
 
 	public render() {
-		if (!this.critterState) {
-			return null
-		}
+		// if (!this.critterState) {
+		// 	return null
+		// }
 
 		const {
 			clearCritters,
