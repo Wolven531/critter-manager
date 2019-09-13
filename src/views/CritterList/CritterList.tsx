@@ -7,6 +7,8 @@ import { COMBAT_COST } from '../../service/combatService'
 
 import { Critter as CritterModel } from '../../model/Critter'
 
+import { CritterState } from '../../state/CritterState'
+
 import './CritterList.scss'
 
 export interface ICritterListProps {
@@ -14,11 +16,11 @@ export interface ICritterListProps {
 }
 
 class CritterList extends Component<ICritterListProps, {}> {
-	private critterState: any
+	private critterState: CritterState
 
 	constructor(props: ICritterListProps) {
 		super(props)
-		this.critterState = new CritterState([])
+		this.critterState = new CritterState(0, [])
 	}
 
 	public componentDidMount() {
@@ -30,12 +32,18 @@ class CritterList extends Component<ICritterListProps, {}> {
 			return null
 		}
 
-		const { clearCritters, critters, saveToLocalStorage, spawnCritter } = this.critterState
+		const {
+			clearCritters,
+			critters,
+			currentMoney,
+			saveToLocalStorage,
+			spawnCritter
+		} = this.critterState
 
 		return (
 			<article className="critter-list">
 				<CritterListControls
-					canStartCombat={this.critterState.currentMoney >= COMBAT_COST}
+					canStartCombat={currentMoney >= COMBAT_COST}
 					clearCritters={clearCritters}
 					saveToLocalStorage={saveToLocalStorage}
 					shouldShowCombat={true}
