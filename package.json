@@ -123,6 +123,7 @@
 		"testMatch": [
 			"<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}",
 			"<rootDir>/src/components/**/**.test.{js,jsx,ts,tsx}",
+			"<rootDir>/src/state/**/**.test.{js,jsx,ts,tsx}",
 			"<rootDir>/src/views/**/**.test.{js,jsx,ts,tsx}"
 		],
 		"testEnvironment": "jsdom",
