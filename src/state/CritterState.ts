@@ -1,7 +1,9 @@
 import { Critter } from '../model/Critter'
 
 class CritterState {
+	// tslint:disable-next-line: variable-name
 	private _critters: Critter[]
+	// tslint:disable-next-line: variable-name
 	private _currentMoney: number
 
 	constructor(initialMoney: number, initialCritters: Critter[]) {
