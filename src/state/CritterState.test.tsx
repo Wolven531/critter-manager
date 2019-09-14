@@ -31,4 +31,14 @@ describe('CritterState unit tests', () => {
 			])
 		})
 	})
+
+	describe('invoke clearCritters', () => {
+		beforeEach(() => {
+			fixture.clearCritters()
+		})
+
+		it('should empty critters', () => {
+			expect(fixture.critters).toEqual([])
+		})
+	})
 })
