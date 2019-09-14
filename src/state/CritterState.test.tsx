@@ -17,6 +17,43 @@ describe('CritterState unit tests', () => {
 		it('should set critters', () => {
 			expect(fixture.critters).toEqual([new CritterModel('critter 1', 10, 1, 0, 'id1')])
 		})
+
+		describe('loadFromStorage when localStorage is unavailable', () => {
+			beforeEach(() => {
+				(window as any).localStorage = undefined
+				fixture.loadFromStorage()
+			})
+
+			it('should not affect critters', () => {
+				expect(fixture.critters).toEqual([new CritterModel('critter 1', 10, 1, 0, 'id1')])
+			})
+		})
+
+		describe('loadFromStorage when localStorage.getItem returns null', () => {
+			beforeEach(() => {
+				(window as any).localStorage = {
+					getItem: jest.fn(() => null)
+				}
+				fixture.loadFromStorage()
+			})
+
+			it('should not affect critters', () => {
+				expect(fixture.critters).toEqual([new CritterModel('critter 1', 10, 1, 0, 'id1')])
+			})
+		})
+
+		describe('loadFromStorage when localStorage.getItem returns empty string', () => {
+			beforeEach(() => {
+				(window as any).localStorage = {
+					getItem: jest.fn(() => '')
+				}
+				fixture.loadFromStorage()
+			})
+
+			it('should not affect critters', () => {
+				expect(fixture.critters).toEqual([new CritterModel('critter 1', 10, 1, 0, 'id1')])
+			})
+		})
 	})
 
 	describe('invoke addCritter', () => {
