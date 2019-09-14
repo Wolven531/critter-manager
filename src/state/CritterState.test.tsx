@@ -41,96 +41,80 @@ describe('CritterState unit tests', () => {
 			})
 		})
 
-		describe('loadFromStorage when localStorage is unavailable', () => {
+		describe('altering window.localStorage', () => {
 			let originalLocalStorage: Storage
 
-			beforeEach(() => {
-				originalLocalStorage = window.localStorage; // NOTE: necessary semi
+			describe('loadFromStorage when localStorage is unavailable', () => {
+				beforeEach(() => {
+					originalLocalStorage = window.localStorage; // NOTE: necessary semi
 
-				(window as any).localStorage = undefined
-				fixture.loadFromStorage()
-			})
-
-			afterEach(() => {
-				(window as any).localStorage = originalLocalStorage
-			})
-
-			it('should not affect critters', () => {
-				expect(fixture.critters).toEqual([new CritterModel('critter 1', 10, 1, 0, 'id1')])
-			})
-		})
-
-		describe('loadFromStorage when localStorage.getItem returns null', () => {
-			let originalLocalStorage: Storage
-
-			beforeEach(() => {
-				originalLocalStorage = window.localStorage
-
-				Object.defineProperty(window, 'localStorage', {
-					value: {
-						getItem: jest.fn(() => null)
-					},
-					writable: true
+					(window as any).localStorage = undefined
+					fixture.loadFromStorage()
 				})
-				fixture.loadFromStorage()
-			})
 
-			afterEach(() => {
-				(window as any).localStorage = originalLocalStorage
-			})
-
-			it('should not affect critters', () => {
-				expect(fixture.critters).toEqual([new CritterModel('critter 1', 10, 1, 0, 'id1')])
-			})
-		})
-
-		describe('loadFromStorage when localStorage.getItem returns empty string', () => {
-			let originalLocalStorage: Storage
-
-			beforeEach(() => {
-				originalLocalStorage = window.localStorage
-
-				Object.defineProperty(window, 'localStorage', {
-					value: {
-						getItem: jest.fn(() => '')
-					},
-					writable: true
+				it('should not affect critters', () => {
+					expect(fixture.critters).toEqual([new CritterModel('critter 1', 10, 1, 0, 'id1')])
 				})
-				fixture.loadFromStorage()
 			})
 
-			afterEach(() => {
-				(window as any).localStorage = originalLocalStorage
-			})
+			describe('loadFromStorage when localStorage.getItem returns null', () => {
+				beforeEach(() => {
+					originalLocalStorage = window.localStorage
 
-			it('should not affect critters', () => {
-				expect(fixture.critters).toEqual([new CritterModel('critter 1', 10, 1, 0, 'id1')])
-			})
-		})
-
-		describe('loadFromStorage when localStorage.getItem returns string of critters', () => {
-			let originalLocalStorage: Storage
-
-			beforeEach(() => {
-				originalLocalStorage = window.localStorage
-
-				Object.defineProperty(window, 'localStorage', {
-					value: {
-						getItem: jest.fn(() => {
-							return JSON.stringify([new CritterModel('some critter', 100, 20, 12, 'someId')])
-						})
-					},
-					writable: true
+					Object.defineProperty(window, 'localStorage', {
+						value: {
+							getItem: jest.fn(() => null)
+						},
+						writable: true
+					})
+					fixture.loadFromStorage()
 				})
-				fixture.loadFromStorage()
+
+				it('should not affect critters', () => {
+					expect(fixture.critters).toEqual([new CritterModel('critter 1', 10, 1, 0, 'id1')])
+				})
+			})
+
+			describe('loadFromStorage when localStorage.getItem returns empty string', () => {
+				beforeEach(() => {
+					originalLocalStorage = window.localStorage
+
+					Object.defineProperty(window, 'localStorage', {
+						value: {
+							getItem: jest.fn(() => '')
+						},
+						writable: true
+					})
+					fixture.loadFromStorage()
+				})
+
+				it('should not affect critters', () => {
+					expect(fixture.critters).toEqual([new CritterModel('critter 1', 10, 1, 0, 'id1')])
+				})
+			})
+
+			describe('loadFromStorage when localStorage.getItem returns string of critters', () => {
+				beforeEach(() => {
+					originalLocalStorage = window.localStorage
+
+					Object.defineProperty(window, 'localStorage', {
+						value: {
+							getItem: jest.fn(() => {
+								return JSON.stringify([new CritterModel('some critter', 100, 20, 12, 'someId')])
+							})
+						},
+						writable: true
+					})
+					fixture.loadFromStorage()
+				})
+
+				it('should replace critters', () => {
+					expect(fixture.critters).toEqual([new CritterModel('some critter', 100, 20, 12, 'someId')])
+				})
 			})
 
 			afterEach(() => {
 				(window as any).localStorage = originalLocalStorage
-			})
-
-			it('should replace critters', () => {
-				expect(fixture.critters).toEqual([new CritterModel('some critter', 100, 20, 12, 'someId')])
 			})
 		})
 	})
