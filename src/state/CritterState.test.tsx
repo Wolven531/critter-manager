@@ -44,10 +44,16 @@ describe('CritterState unit tests', () => {
 		describe('altering window.localStorage', () => {
 			let originalLocalStorage: Storage
 
+			beforeEach(() => {
+				originalLocalStorage = window.localStorage
+			})
+
+			afterEach(() => {
+				(window as any).localStorage = originalLocalStorage
+			})
+
 			describe('loadFromStorage when localStorage is unavailable', () => {
 				beforeEach(() => {
-					originalLocalStorage = window.localStorage; // NOTE: necessary semi
-
 					(window as any).localStorage = undefined
 					fixture.loadFromStorage()
 				})
@@ -59,8 +65,6 @@ describe('CritterState unit tests', () => {
 
 			describe('loadFromStorage when localStorage.getItem returns null', () => {
 				beforeEach(() => {
-					originalLocalStorage = window.localStorage
-
 					Object.defineProperty(window, 'localStorage', {
 						value: {
 							getItem: jest.fn(() => null)
@@ -77,8 +81,6 @@ describe('CritterState unit tests', () => {
 
 			describe('loadFromStorage when localStorage.getItem returns empty string', () => {
 				beforeEach(() => {
-					originalLocalStorage = window.localStorage
-
 					Object.defineProperty(window, 'localStorage', {
 						value: {
 							getItem: jest.fn(() => '')
@@ -95,8 +97,6 @@ describe('CritterState unit tests', () => {
 
 			describe('loadFromStorage when localStorage.getItem returns string of critters', () => {
 				beforeEach(() => {
-					originalLocalStorage = window.localStorage
-
 					Object.defineProperty(window, 'localStorage', {
 						value: {
 							getItem: jest.fn(() => {
@@ -111,10 +111,6 @@ describe('CritterState unit tests', () => {
 				it('should replace critters', () => {
 					expect(fixture.critters).toEqual([new CritterModel('some critter', 100, 20, 12, 'someId')])
 				})
-			})
-
-			afterEach(() => {
-				(window as any).localStorage = originalLocalStorage
 			})
 		})
 	})
