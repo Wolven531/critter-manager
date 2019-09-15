@@ -149,6 +149,33 @@ describe('CritterState unit tests', () => {
 				})
 			})
 			// tslint:enable: no-console
+
+			// tslint:disable: no-console
+			describe('when fetch returns non 200 status', () => {
+				let mockConsoleWarn: jest.Mock
+				let originalConsoleWarn: (message?: any, ...optionalParams: any[]) => void
+
+				beforeEach(() => {
+					(window as any).fetch = jest.fn(() => {
+						return new Response(undefined, { status: 500 })
+					})
+					originalConsoleWarn = console.warn
+					mockConsoleWarn = jest.fn()
+					console.warn = mockConsoleWarn
+
+					fixture.spawnCritter()
+				})
+
+				afterEach(() => {
+					console.warn = originalConsoleWarn
+				})
+
+				it('should invoke console.warn', () => {
+					expect(mockConsoleWarn).toHaveBeenCalledTimes(1)
+					expect(mockConsoleWarn).toHaveBeenLastCalledWith('Failed to generate random name, status=500 OK')
+				})
+			})
+			// tslint:enable: no-console
 		})
 	})
 })

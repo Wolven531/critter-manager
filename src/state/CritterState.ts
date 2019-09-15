@@ -44,7 +44,6 @@ class CritterState {
 			alert('local storage not available, unable to save 😢')
 			return
 		}
-		// console.info('localStorage is available! saving critters...')
 		window.localStorage.setItem('react-hooks-todo.critters', JSON.stringify(this._critters))
 	}
 
