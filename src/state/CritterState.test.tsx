@@ -178,11 +178,12 @@ describe('CritterState unit tests', () => {
 			// tslint:enable: no-console
 
 			describe('when fetch returns proper data', () => {
+				const fakeResponse = { results: [ { name: { first: 'oliver' } } ] }
 				let spyAddCritter: jest.SpyInstance
 
 				beforeEach(() => {
 					(window as any).fetch = jest.fn(() => {
-						return new Response(JSON.stringify({ results: [ { name: { first: 'oliver' } } ] }), { status: 200 })
+						return new Response(JSON.stringify(fakeResponse), { status: 200 })
 					})
 					spyAddCritter = jest.spyOn(fixture, 'addCritter')
 
