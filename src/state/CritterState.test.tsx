@@ -176,6 +176,25 @@ describe('CritterState unit tests', () => {
 				})
 			})
 			// tslint:enable: no-console
+
+			describe('when fetch returns proper data', () => {
+				let spyAddCritter: jest.SpyInstance
+
+				beforeEach(() => {
+					(window as any).fetch = jest.fn(() => {
+						return new Response(JSON.stringify({ results: [ { name: { first: 'oliver' } } ] }), { status: 200 })
+					})
+					spyAddCritter = jest.spyOn(fixture, 'addCritter')
+
+					fixture.spawnCritter()
+				})
+
+				it('should invoke addCritter w/ capitalized first name', () => {
+					expect(spyAddCritter).toHaveBeenCalledTimes(1)
+					const passedCritterParam = spyAddCritter.mock.calls[0][0]
+					expect(passedCritterParam).toMatchObject({ name: 'Oliver' })
+				})
+			})
 		})
 	})
 })
