@@ -113,5 +113,42 @@ describe('CritterState unit tests', () => {
 				})
 			})
 		})
+
+		describe('altering window.fetch', () => {
+			let originalFetch: (input: RequestInfo, init?: RequestInit) => Promise<Response>
+
+			beforeEach(() => {
+				originalFetch = window.fetch
+			})
+
+			afterEach(() => {
+				window.fetch = originalFetch
+			})
+
+			// tslint:disable: no-console
+			describe('when fetch API is not available', () => {
+				let mockConsoleError: jest.Mock
+				let originalConsoleError: (message?: any, ...optionalParams: any[]) => void
+
+				beforeEach(() => {
+					(window as any).fetch = undefined
+					originalConsoleError = console.error
+					mockConsoleError = jest.fn()
+					console.error = mockConsoleError
+
+					fixture.spawnCritter()
+				})
+
+				afterEach(() => {
+					console.error = originalConsoleError
+				})
+
+				it('should invoke console.error', () => {
+					expect(mockConsoleError).toHaveBeenCalledTimes(1)
+					expect(mockConsoleError).toHaveBeenLastCalledWith('fetch not supported or randomuser.me not available...')
+				})
+			})
+			// tslint:enable: no-console
+		})
 	})
 })
