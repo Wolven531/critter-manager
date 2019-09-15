@@ -52,17 +52,6 @@ describe('CritterState unit tests', () => {
 				(window as any).localStorage = originalLocalStorage
 			})
 
-			describe('loadFromStorage when localStorage is unavailable', () => {
-				beforeEach(() => {
-					(window as any).localStorage = undefined
-					fixture.loadFromStorage()
-				})
-
-				it('should not affect critters', () => {
-					expect(fixture.critters).toEqual([new CritterModel('critter 1', 10, 1, 0, 'id1')])
-				})
-			})
-
 			describe('loadFromStorage when localStorage.getItem returns null', () => {
 				beforeEach(() => {
 					Object.defineProperty(window, 'localStorage', {
