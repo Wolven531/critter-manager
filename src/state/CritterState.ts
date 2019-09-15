@@ -49,9 +49,20 @@ class CritterState {
 	}
 
 	public async spawnCritter() {
-		const nameResponse = await fetch(`https://randomuser.me/api/`)
+		let nameResponse
+		try {
+			nameResponse = await fetch(`https://randomuser.me/api/`)
+		} catch {
+			// tslint:disable-next-line: no-console
+			console.error('fetch not supported or randomuser.me not available...')
+		}
+
+		if (!nameResponse) {
+			return
+		}
 
 		if (nameResponse.status !== 200) {
+			// tslint:disable-next-line: no-console
 			console.warn(`Failed to generate random name, status=${nameResponse.status} ${nameResponse.statusText}`)
 			return
 		}
