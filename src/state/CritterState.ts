@@ -28,10 +28,6 @@ class CritterState {
 	}
 
 	public loadFromStorage() {
-		if (!window.localStorage) {
-			return
-		}
-		// console.info('localStorage is available! loading critter...')
 		const storedCritterStr = window.localStorage.getItem('react-hooks-todo.critters')
 		if (!storedCritterStr || storedCritterStr.length < 1) {
 			return
@@ -40,10 +36,6 @@ class CritterState {
 	}
 
 	public saveToLocalStorage() {
-		if (!window.localStorage) {
-			alert('local storage not available, unable to save 😢')
-			return
-		}
 		window.localStorage.setItem('react-hooks-todo.critters', JSON.stringify(this._critters))
 	}
 
@@ -67,7 +59,6 @@ class CritterState {
 		}
 
 		const nameData = await nameResponse.json()
-		// const { first, last } = nameData.results[0].name
 		const { first }: { first: string } = nameData.results[0].name
 		const firstLetter = first.charAt(0).toUpperCase()
 
