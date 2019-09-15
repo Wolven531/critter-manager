@@ -41,6 +41,22 @@ describe('CritterState unit tests', () => {
 			})
 		})
 
+		describe('invoke saveToLocalStorage', () => {
+			let spySetItem: jest.SpyInstance
+
+			beforeEach(() => {
+				spySetItem = jest.spyOn(window.localStorage, 'setItem')
+				fixture.saveToLocalStorage()
+			})
+
+			it('should invoke window.localStorage.setItem', () => {
+				expect(spySetItem).toHaveBeenCalledTimes(1)
+				expect(spySetItem).toHaveBeenLastCalledWith(
+					'react-hooks-todo.critters',
+					JSON.stringify([new CritterModel('critter 1', 10, 1, 0, 'id1')]))
+			})
+		})
+
 		describe('altering window.localStorage', () => {
 			let originalLocalStorage: Storage
 
