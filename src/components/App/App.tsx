@@ -12,7 +12,7 @@ import { MoneyControls } from '../MoneyControls/MoneyControls'
 import { PageNotFound } from '../PageNotFound/PageNotFound'
 import { WebSocketClient } from '../WebSocketClient/WebSocketClient'
 
-import { CritterState } from '../../state/CritterState'
+import { CritterState } from '../../state/CritterState/CritterState'
 import { UpgradeState } from '../../state/UpgradeState'
 import { useMoneyState } from '../../state/useMoneyState'
 

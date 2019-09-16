@@ -1,4 +1,4 @@
-import { Critter as CritterModel } from '../model/Critter'
+import { Critter as CritterModel } from '../../model/Critter'
 
 import { CritterState } from './CritterState'
 

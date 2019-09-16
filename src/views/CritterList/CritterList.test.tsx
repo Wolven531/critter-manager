@@ -12,7 +12,7 @@ import { Critter as CritterComponent } from '../../components/Critter/Critter'
 
 import { Critter as CritterModel } from '../../model/Critter'
 
-import { CritterState } from '../../state/CritterState'
+import { CritterState } from '../../state/CritterState/CritterState'
 
 import { CritterList, ICritterListProps } from './CritterList'
 

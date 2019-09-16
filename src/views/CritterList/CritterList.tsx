@@ -7,7 +7,7 @@ import { COMBAT_COST } from '../../service/combatService'
 
 import { Critter as CritterModel } from '../../model/Critter'
 
-import { CritterState } from '../../state/CritterState'
+import { CritterState } from '../../state/CritterState/CritterState'
 
 import './CritterList.scss'
 
@@ -50,7 +50,7 @@ class CritterList extends Component<ICritterListProps, {}> {
 					saveToLocalStorage={saveToLocalStorage}
 					shouldShowCombat={true}
 					spawnCritter={spawnCritter}
-					startCombat={() => {}} />
+					startCombat={() => { return }} />
 				<section className="display-container">
 					{critters.map((critter: CritterModel) => <Critter key={critter.id} critter={critter} />)}
 				</section>

@@ -1,4 +1,4 @@
-import { Critter } from '../model/Critter'
+import { Critter } from '../../model/Critter'
 
 class CritterState {
 	// tslint:disable-next-line: variable-name
