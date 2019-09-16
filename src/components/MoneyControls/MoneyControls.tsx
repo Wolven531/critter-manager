@@ -1,4 +1,4 @@
-import React, { useEffect, useState, MouseEvent } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { useInterval } from '../../hooks/useInterval'
 
@@ -35,7 +35,9 @@ const MoneyControls = ({ moneyState, upgradeStore }: IMoneyControlsProps) => {
 	// const { gathererLevel, getGathererUpgradeCost, upgradeGatherers } = upgradeStore
 
 	// NOTE: This happens before un-render (only once)
-	const handleUnmount = () => {}
+	const handleUnmount = () => {
+		return
+	}
 
 	// NOTE: This happens after render (only once)
 	const handleMounted = () => {
