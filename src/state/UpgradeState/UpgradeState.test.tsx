@@ -5,6 +5,20 @@ describe('UpgradeState unit tests', () => {
 
 	describe('initialize UpgradeState w/ value', () => {
 		beforeEach(() => {
+			fixture = new UpgradeState()
+		})
+
+		it('should set gathererLevel', () => {
+			expect(fixture.gathererLevel).toBe(0)
+		})
+
+		it('should change gatherer upgrade cost', () => {
+			expect(fixture.getGathererUpgradeCost()).toBe(100)
+		})
+	})
+
+	describe('initialize UpgradeState w/ value', () => {
+		beforeEach(() => {
 			fixture = new UpgradeState(3)
 		})
 
