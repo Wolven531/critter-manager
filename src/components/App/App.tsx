@@ -13,7 +13,7 @@ import { PageNotFound } from '../PageNotFound/PageNotFound'
 import { WebSocketClient } from '../WebSocketClient/WebSocketClient'
 
 import { CritterState } from '../../state/CritterState/CritterState'
-import { UpgradeState } from '../../state/UpgradeState'
+import { UpgradeState } from '../../state/UpgradeState/UpgradeState'
 import { useMoneyState } from '../../state/useMoneyState'
 
 import './App.scss'
