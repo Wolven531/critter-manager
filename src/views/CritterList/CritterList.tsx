@@ -30,10 +30,6 @@ class CritterList extends Component<ICritterListProps, {}> {
 	}
 
 	public render() {
-		// if (!this.critterState) {
-		// 	return null
-		// }
-
 		const {
 			clearCritters,
 			critters,
@@ -50,7 +46,8 @@ class CritterList extends Component<ICritterListProps, {}> {
 					saveToLocalStorage={saveToLocalStorage}
 					shouldShowCombat={true}
 					spawnCritter={spawnCritter}
-					startCombat={() => { return }} />
+					// tslint:disable-next-line: no-empty
+					startCombat={() => { }} />
 				<section className="display-container">
 					{critters.map((critter: CritterModel) => <Critter key={critter.id} critter={critter} />)}
 				</section>
