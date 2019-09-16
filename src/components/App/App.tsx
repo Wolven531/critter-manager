@@ -13,14 +13,14 @@ import { PageNotFound } from '../PageNotFound/PageNotFound'
 import { WebSocketClient } from '../WebSocketClient/WebSocketClient'
 
 import { CritterState } from '../../state/CritterState'
-import { UpgradeStore } from '../../state/upgradeStore'
+import { UpgradeState } from '../../state/UpgradeState'
 import { useMoneyState } from '../../state/useMoneyState'
 
 import './App.scss'
 
 const App: FC = () => {
 	const moneyState = useMoneyState(0)
-	const upgradeStore = new UpgradeStore()
+	const upgradeState = new UpgradeState()
 
 	// NOTE: This happens before un-render (only once)
 	const handleUnmount = () => {
@@ -53,7 +53,7 @@ const App: FC = () => {
 							<CritterList critterState={new CritterState(moneyState.money, [])} />
 						</Route>
 						<Route path="/money">
-							<MoneyControls moneyState={moneyState} upgradeStore={upgradeStore} />
+							<MoneyControls moneyState={moneyState} upgradeState={upgradeState} />
 						</Route>
 						<Route path="/webSocket">
 							<WebSocketClient />

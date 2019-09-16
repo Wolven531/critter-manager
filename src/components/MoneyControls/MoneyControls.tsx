@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import { useInterval } from '../../hooks/useInterval'
 
-import { UpgradeStore } from '../../state/upgradeStore'
+import { UpgradeState } from '../../state/UpgradeState'
 import { GATHERER_COST, IMoneyState } from '../../state/useMoneyState'
 
 import { Modal } from '../../components/Modal/Modal'
@@ -16,10 +16,10 @@ const GATHERER_TIME_SECONDS = 2
 
 interface IMoneyControlsProps {
 	moneyState: IMoneyState
-	upgradeStore: UpgradeStore
+	upgradeState: UpgradeState
 }
 
-const MoneyControls = ({ moneyState, upgradeStore }: IMoneyControlsProps) => {
+const MoneyControls = ({ moneyState, upgradeState }: IMoneyControlsProps) => {
 	const [gathererTick, setGathererTick] = useState(GATHERER_INITIAL_TICK)
 	const [isShowingModal, setIsShowingModal] = useState(true)
 
@@ -31,8 +31,6 @@ const MoneyControls = ({ moneyState, upgradeStore }: IMoneyControlsProps) => {
 		gatherers,
 		money,
 		resetProgress } = moneyState
-	// TODO: research why do each of these funcs not have a `this` ???
-	// const { gathererLevel, getGathererUpgradeCost, upgradeGatherers } = upgradeStore
 
 	// NOTE: This happens before un-render (only once)
 	const handleUnmount = () => {
@@ -45,7 +43,7 @@ const MoneyControls = ({ moneyState, upgradeStore }: IMoneyControlsProps) => {
 
 		if (loadedInfo) {
 			for (let a = 0; a < loadedInfo.gathererLevel; a++) {
-				upgradeStore.upgradeGatherers()
+				upgradeState.upgradeGatherers()
 			}
 		}
 
@@ -64,8 +62,8 @@ const MoneyControls = ({ moneyState, upgradeStore }: IMoneyControlsProps) => {
 	}
 
 	const handleUpgradeGatherers = () => {
-		addMoney(-1 * upgradeStore.getGathererUpgradeCost())
-		upgradeStore.upgradeGatherers()
+		addMoney(-1 * upgradeState.getGathererUpgradeCost())
+		upgradeState.upgradeGatherers()
 	}
 
 	useInterval(() => {
@@ -74,7 +72,7 @@ const MoneyControls = ({ moneyState, upgradeStore }: IMoneyControlsProps) => {
 		}
 		if (gathererTick >= GATHERER_TIME_SECONDS * GATHERER_TICK_RATE) {
 			setGathererTick(GATHERER_INITIAL_TICK)
-			collectFromGatherers(upgradeStore.gathererLevel)
+			collectFromGatherers(upgradeState.gathererLevel)
 			return
 		}
 		setGathererTick(gathererTick + 1)
@@ -82,7 +80,7 @@ const MoneyControls = ({ moneyState, upgradeStore }: IMoneyControlsProps) => {
 
 	useInterval(() => {
 		// console.info(`[${dateFormatter.format(Date.now())}] saving money..., ${money}`)
-		moneyState.saveToStorage(upgradeStore.gathererLevel)
+		moneyState.saveToStorage(upgradeState.gathererLevel)
 	}, 1000)
 
 	return (
@@ -101,13 +99,13 @@ const MoneyControls = ({ moneyState, upgradeStore }: IMoneyControlsProps) => {
 					: <article>
 						Gatherers: {gatherers}
 						<br/>
-						Gatherer Level: {upgradeStore.gathererLevel}
+						Gatherer Level: {upgradeState.gathererLevel}
 						<br/>
-						Gatherer Income = ${calculateGathererIncome(upgradeStore.gathererLevel)}
+						Gatherer Income = ${calculateGathererIncome(upgradeState.gathererLevel)}
 						<br/>
 						<button className="upgrade"
-							disabled={money < upgradeStore.getGathererUpgradeCost()}
-							onClick={() => { handleUpgradeGatherers() }}>Upgrade Gatherers ({upgradeStore.getGathererUpgradeCost()})</button>
+							disabled={money < upgradeState.getGathererUpgradeCost()}
+							onClick={() => { handleUpgradeGatherers() }}>Upgrade Gatherers ({upgradeState.getGathererUpgradeCost()})</button>
 						<br/>
 						<progress value={gathererTick} max={GATHERER_TIME_SECONDS * GATHERER_TICK_RATE} />
 					</article>}
