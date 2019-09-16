@@ -11,5 +11,9 @@ describe('UpgradeState unit tests', () => {
 		it('should set gathererLevel', () => {
 			expect(fixture.gathererLevel).toBe(3)
 		})
+
+		it('should update gathererLevel', () => {
+			expect(fixture.getGathererUpgradeCost()).toBe(1600)
+		})
 	})
 })
