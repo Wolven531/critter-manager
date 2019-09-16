@@ -4,14 +4,15 @@ import {
 	BrowserRouter as Router,
 	Link,
 	Route,
-	Switch,
-  } from 'react-router-dom'
+	Switch
+} from 'react-router-dom'
 
 import { CritterList } from '../../views/CritterList/CritterList'
 import { MoneyControls } from '../MoneyControls/MoneyControls'
 import { PageNotFound } from '../PageNotFound/PageNotFound'
 import { WebSocketClient } from '../WebSocketClient/WebSocketClient'
 
+import { CritterState } from '../../state/CritterState'
 import { UpgradeStore } from '../../state/upgradeStore'
 import { useMoneyState } from '../../state/useMoneyState'
 
@@ -22,7 +23,9 @@ const App: FC = () => {
 	const upgradeStore = new UpgradeStore()
 
 	// NOTE: This happens before un-render (only once)
-	const handleUnmount = () => {}
+	const handleUnmount = () => {
+		return
+	}
 
 	// NOTE: This happens after render (only once)
 	const handleMounted = () => {
@@ -47,7 +50,7 @@ const App: FC = () => {
 					<Link to="/webSocket">Web Socket</Link>
 					<Switch>
 						<Route exact={true} path="/">
-							<CritterList currentMoney={moneyState.money} />
+							<CritterList critterState={new CritterState(moneyState.money, [])} />
 						</Route>
 						<Route path="/money">
 							<MoneyControls moneyState={moneyState} upgradeStore={upgradeStore} />
