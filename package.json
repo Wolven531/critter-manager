@@ -11,6 +11,7 @@
 		"node": "12.7.0"
 	},
 	"dependencies": {
+		"@babel/core": "^7.5.5",
 		"babel-loader": "8.0.6",
 		"babel-plugin-named-asset-import": "^0.3.2",
 		"babel-preset-react-app": "^9.0.0",
@@ -53,7 +54,6 @@
 		"ws": "^7.1.1"
 	},
 	"devDependencies": {
-		"@babel/core": "^7.5.5",
 		"@svgr/webpack": "^4.3.2",
 		"@types/cheerio": "^0.22.12",
 		"@types/enzyme": "^3.10.3",
