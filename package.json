@@ -7,6 +7,9 @@
 	"name": "critter-manager",
 	"version": "0.1.0",
 	"private": true,
+	"engines": {
+		"node": "12.7.0"
+	},
 	"dependencies": {
 		"bfj": "^7.0.1",
 		"dotenv": "^8.0.0",
