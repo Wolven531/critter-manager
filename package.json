@@ -12,6 +12,10 @@
 	},
 	"dependencies": {
 		"@babel/core": "^7.5.5",
+		"@svgr/webpack": "^4.3.2",
+		"babel-core": "7.0.0-bridge.0",
+		"babel-eslint": "^10.0.2",
+		"babel-jest": "^24.8.0",
 		"babel-loader": "8.0.6",
 		"babel-plugin-named-asset-import": "^0.3.2",
 		"babel-preset-react-app": "^9.0.0",
@@ -28,6 +32,7 @@
 		"identity-obj-proxy": "3.0.0",
 		"mini-css-extract-plugin": "^0.8.0",
 		"moment": "^2.24.0",
+		"node-sass": "^4.12.0",
 		"optimize-css-assets-webpack-plugin": "^5.0.3",
 		"pnp-webpack-plugin": "^1.5.0",
 		"postcss-flexbugs-fixes": "4.1.0",
@@ -54,7 +59,6 @@
 		"ws": "^7.1.1"
 	},
 	"devDependencies": {
-		"@svgr/webpack": "^4.3.2",
 		"@types/cheerio": "^0.22.12",
 		"@types/enzyme": "^3.10.3",
 		"@types/enzyme-adapter-react-16": "^1.0.5",
@@ -67,9 +71,6 @@
 		"@types/react-router": "^5.0.3",
 		"@types/react-router-dom": "^4.3.4",
 		"@types/uuid": "^3.4.5",
-		"babel-core": "7.0.0-bridge.0",
-		"babel-eslint": "^10.0.2",
-		"babel-jest": "^24.8.0",
 		"cheerio": "^1.0.0-rc.3",
 		"enzyme": "^3.10.0",
 		"enzyme-adapter-react-16": "^1.14.0",
@@ -85,7 +86,6 @@
 		"jest-watch-typeahead": "^0.3.1",
 		"mocha": "^6.2.0",
 		"mock-local-storage": "^1.1.8",
-		"node-sass": "^4.12.0",
 		"tslint": "^5.18.0"
 	},
 	"scripts": {
