@@ -25,6 +25,8 @@
 		"react-router-dom": "^5.0.1",
 		"resolve": "1.11.1",
 		"uuid": "^3.3.2",
+		"webpack": "4.38.0",
+		"webpack-dev-server": "^3.7.2",
 		"ws": "^7.1.1"
 	},
 	"devDependencies": {
@@ -83,8 +85,6 @@
 		"tslint": "^5.18.0",
 		"typescript": "^3.5.3",
 		"url-loader": "^2.1.0",
-		"webpack": "4.38.0",
-		"webpack-dev-server": "^3.7.2",
 		"webpack-manifest-plugin": "2.0.4",
 		"workbox-webpack-plugin": "^4.3.1"
 	},
