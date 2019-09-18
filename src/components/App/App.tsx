@@ -13,13 +13,13 @@ import { PageNotFound } from '../PageNotFound/PageNotFound'
 import { WebSocketClient } from '../WebSocketClient/WebSocketClient'
 
 import { CritterState } from '../../state/CritterState/CritterState'
+import { MoneyState } from '../../state/MoneyState/MoneyState'
 import { UpgradeState } from '../../state/UpgradeState/UpgradeState'
-import { useMoneyState } from '../../state/useMoneyState'
 
 import './App.scss'
 
 const App: FC = () => {
-	const moneyState = useMoneyState(0)
+	const moneyState = new MoneyState(0)
 	const upgradeState = new UpgradeState()
 
 	// NOTE: This happens before un-render (only once)
