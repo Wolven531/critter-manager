@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useInterval } from '../../hooks/useInterval'
 
 import { UpgradeState } from '../../state/UpgradeState/UpgradeState'
-import { GATHERER_COST, IMoneyState } from '../../state/useMoneyState'
+import { GATHERER_COST, MoneyState } from '../../state/MoneyState/MoneyState'
 
 import { Modal } from '../../components/Modal/Modal'
 import { monify } from '../utils'
@@ -15,7 +15,7 @@ const GATHERER_TICK_RATE = 10
 const GATHERER_TIME_SECONDS = 2
 
 interface IMoneyControlsProps {
-	moneyState: IMoneyState
+	moneyState: MoneyState
 	upgradeState: UpgradeState
 }
 
@@ -28,7 +28,7 @@ const MoneyControls = ({ moneyState, upgradeState }: IMoneyControlsProps) => {
 		addMoney,
 		calculateGathererIncome,
 		collectFromGatherers,
-		gatherers,
+		numGatherers,
 		money,
 		resetProgress } = moneyState
 
@@ -67,7 +67,7 @@ const MoneyControls = ({ moneyState, upgradeState }: IMoneyControlsProps) => {
 	}
 
 	useInterval(() => {
-		if (gatherers < 1) {
+		if (numGatherers < 1) {
 			return
 		}
 		if (gathererTick >= GATHERER_TIME_SECONDS * GATHERER_TICK_RATE) {
@@ -94,10 +94,10 @@ const MoneyControls = ({ moneyState, upgradeState }: IMoneyControlsProps) => {
 			</Modal>)}
 			<section>
 				<p>Money: {monify(money)}</p>
-				{gatherers < 1
+				{numGatherers < 1
 					? null
 					: <article>
-						Gatherers: {gatherers}
+						Gatherers: {numGatherers}
 						<br/>
 						Gatherer Level: {upgradeState.gathererLevel}
 						<br/>
