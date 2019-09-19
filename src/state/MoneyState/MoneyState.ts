@@ -30,7 +30,7 @@ class MoneyState {
 		this._numGatherers += 1
 	}
 
-	public addMoney = (additionalFunds: number = 1) => {
+	public addMoney = (additionalFunds = 1) => {
 		this._currentMoney += additionalFunds
 	}
 
