@@ -35,7 +35,7 @@ class MoneyState {
 	}
 
 	public calculateGathererIncome(gathererLevel = 1): number {
-		return this._numGatherers * GATHERER_INCOME * (gathererLevel + 1)
+		return this._numGatherers * GATHERER_INCOME * (gathererLevel > 0 ? gathererLevel : 1)
 	}
 
 	public collectFromGatherers(gathererLevel = 1) {

@@ -25,6 +25,18 @@ describe('MoneyState unit tests', () => {
 				expect(fixture.money).toBe(353)
 				expect(fixture.numGatherers).toBe(1)
 			})
+
+			describe('invoke calculateGathererIncome w/o argument', () => {
+				let resultingIncome: number
+	
+				beforeEach(() => {
+					resultingIncome = fixture.calculateGathererIncome()
+				})
+	
+				it('should calculate income using default gatherer level', () => {
+					expect(resultingIncome).toBe(1)
+				})
+			})
 		})
 
 		describe('invoke addMoney w/o argument', () => {
