@@ -1,4 +1,4 @@
-import { MoneyState } from './MoneyState'
+import { MoneyState, GATHERER_COST } from './MoneyState'
 
 describe('MoneyState unit tests', () => {
 	let fixture: MoneyState
@@ -14,6 +14,17 @@ describe('MoneyState unit tests', () => {
 
 		it('should set number of gatherers', () => {
 			expect(fixture.numGatherers).toBe(0)
+		})
+
+		describe('invoke addGatherer', () => {
+			beforeEach(() => {
+				fixture.addGatherer()
+			})
+
+			it('should reduce currentMoney and increase number of gatherers', () => {
+				expect(fixture.money).toBe(353)
+				expect(fixture.numGatherers).toBe(1)
+			})
 		})
 	})
 })
