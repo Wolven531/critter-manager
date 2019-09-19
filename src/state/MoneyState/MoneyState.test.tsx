@@ -26,5 +26,15 @@ describe('MoneyState unit tests', () => {
 				expect(fixture.numGatherers).toBe(1)
 			})
 		})
+
+		describe('invoke addMoney w/o argument', () => {
+			beforeEach(() => {
+				fixture.addMoney()
+			})
+
+			it('should increase money by default amount', () => {
+				expect(fixture.money).toBe(364)
+			})
+		})
 	})
 })
