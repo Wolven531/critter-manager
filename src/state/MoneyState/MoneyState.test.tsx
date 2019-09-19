@@ -36,5 +36,15 @@ describe('MoneyState unit tests', () => {
 				expect(fixture.money).toBe(364)
 			})
 		})
+
+		describe('invoke addMoney w/ specific amount', () => {
+			beforeEach(() => {
+				fixture.addMoney(16)
+			})
+
+			it('should increase money by specified amount', () => {
+				expect(fixture.money).toBe(379)
+			})
+		})
 	})
 })
