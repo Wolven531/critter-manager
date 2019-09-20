@@ -43,10 +43,6 @@ class MoneyState {
 	}
 
 	public loadFromStorage() {
-		if (!window.localStorage) {
-			console.warn('[loadFromStorage | useMoneyState] localStorage is NOT available! failed to load')
-			return
-		}
 		const storedAutoSaveStr = window.localStorage.getItem('react-hooks-todo.auto_save')
 		if (!storedAutoSaveStr || storedAutoSaveStr.length < 1) {
 			return
@@ -64,12 +60,6 @@ class MoneyState {
 	}
 
 	public saveToStorage(gathererLevel: number) {
-		if (!window.localStorage) {
-			alert('local storage not available, unable to save 😢')
-			return
-		}
-		// console.info('localStorage is available! saving money...')
-		// window.localStorage.setItem('react-hooks-todo.money', String(money))
 		const autoSaveInfo: IAutoSave = {
 			gathererLevel,
 			gatherers: this._numGatherers,
