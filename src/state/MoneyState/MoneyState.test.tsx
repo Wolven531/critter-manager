@@ -93,6 +93,17 @@ describe('MoneyState unit tests', () => {
 					expect(fixture.money).toBe(358)
 				})
 			})
+
+			describe('invoke resetProgress', () => {
+				beforeEach(() => {
+					fixture.resetProgress()
+				})
+
+				afterEach(() => {
+					expect(fixture.money).toBe(0)
+					expect(fixture.numGatherers).toBe(0)
+				})
+			})
 		})
 
 		describe('invoke addMoney w/o argument', () => {
