@@ -49,6 +49,28 @@ describe('MoneyState unit tests', () => {
 					expect(resultingIncome).toBe(5)
 				})
 			})
+
+			describe('invoke collectFromGatherers w/o arguments', () => {
+				let spyAddMoney: jest.SpyInstance
+				let spyCalculateGathererIncome: jest.SpyInstance
+
+				beforeEach(() => {
+					spyAddMoney = jest.spyOn(fixture, 'addMoney')
+					spyCalculateGathererIncome = jest.spyOn(fixture, 'calculateGathererIncome')
+
+					fixture.collectFromGatherers()
+				})
+
+				it('should increase money by calculated amount', () => {
+					expect(spyCalculateGathererIncome).toHaveBeenCalledTimes(1)
+					expect(spyCalculateGathererIncome).toHaveBeenLastCalledWith(1)
+
+					expect(spyAddMoney).toHaveBeenCalledTimes(1)
+					expect(spyAddMoney).toHaveBeenLastCalledWith(1)
+
+					expect(fixture.money).toBe(354)
+				})
+			})
 		})
 
 		describe('invoke addMoney w/o argument', () => {
