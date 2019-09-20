@@ -99,7 +99,7 @@ describe('MoneyState unit tests', () => {
 					fixture.resetProgress()
 				})
 
-				afterEach(() => {
+				it('reset money and number of gatherers', () => {
 					expect(fixture.money).toBe(0)
 					expect(fixture.numGatherers).toBe(0)
 				})
