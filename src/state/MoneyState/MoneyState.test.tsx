@@ -152,6 +152,23 @@ describe('MoneyState unit tests', () => {
 						expect(fixture.numGatherers).toBe(1)
 					})
 				})
+
+				describe('loadFromStorage when localStorage.getItem returns empty string', () => {
+					beforeEach(() => {
+						Object.defineProperty(window, 'localStorage', {
+							value: {
+								getItem: jest.fn(() => '')
+							},
+							writable: true
+						})
+						fixture.loadFromStorage()
+					})
+
+					it('should not affect money or number of gatherers', () => {
+						expect(fixture.money).toBe(353)
+						expect(fixture.numGatherers).toBe(1)
+					})
+				})
 			})
 		})
 
