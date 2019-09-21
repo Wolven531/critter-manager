@@ -50,6 +50,18 @@ describe('MoneyState unit tests', () => {
 				})
 			})
 
+			describe('invoke calculateGathererIncome w/ specified gatherer level at zero (0)', () => {
+				let resultingIncome: number
+
+				beforeEach(() => {
+					resultingIncome = fixture.calculateGathererIncome(0)
+				})
+
+				it('should calculate income using specified gatherer level equal to 1', () => {
+					expect(resultingIncome).toBe(1)
+				})
+			})
+
 			describe('invoke collectFromGatherers w/o arguments', () => {
 				let spyAddMoney: jest.SpyInstance
 				let spyCalculateGathererIncome: jest.SpyInstance
