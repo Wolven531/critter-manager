@@ -169,6 +169,29 @@ describe('MoneyState unit tests', () => {
 						expect(fixture.numGatherers).toBe(1)
 					})
 				})
+
+				describe('loadFromStorage when localStorage.getItem returns string of auto save', () => {
+					beforeEach(() => {
+						Object.defineProperty(window, 'localStorage', {
+							value: {
+								getItem: jest.fn(() => {
+									return JSON.stringify({
+										gathererLevel: 13,
+										gatherers: 4567,
+										money: 87965
+									})
+								})
+							},
+							writable: true
+						})
+						fixture.loadFromStorage()
+					})
+
+					it('should update money and number of gatherers', () => {
+						expect(fixture.money).toBe(87965)
+						expect(fixture.numGatherers).toBe(4567)
+					})
+				})
 			})
 		})
 
