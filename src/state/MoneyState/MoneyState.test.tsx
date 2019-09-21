@@ -28,11 +28,11 @@ describe('MoneyState unit tests', () => {
 
 			describe('invoke calculateGathererIncome w/o argument', () => {
 				let resultingIncome: number
-	
+
 				beforeEach(() => {
 					resultingIncome = fixture.calculateGathererIncome()
 				})
-	
+
 				it('should calculate income using default gatherer level', () => {
 					expect(resultingIncome).toBe(1)
 				})
@@ -40,11 +40,11 @@ describe('MoneyState unit tests', () => {
 
 			describe('invoke calculateGathererIncome w/ specified gatherer level', () => {
 				let resultingIncome: number
-	
+
 				beforeEach(() => {
 					resultingIncome = fixture.calculateGathererIncome(5)
 				})
-	
+
 				it('should calculate income using specified gatherer level', () => {
 					expect(resultingIncome).toBe(5)
 				})
@@ -107,12 +107,12 @@ describe('MoneyState unit tests', () => {
 
 			describe('invoke saveToStorage w/ specific argument', () => {
 				let spySetItem: jest.SpyInstance
-	
+
 				beforeEach(() => {
 					spySetItem = jest.spyOn(window.localStorage, 'setItem')
 					fixture.saveToStorage(5)
 				})
-	
+
 				it('should invoke window.localStorage.setItem', () => {
 					expect(spySetItem).toHaveBeenCalledTimes(1)
 					expect(spySetItem).toHaveBeenLastCalledWith(
@@ -122,6 +122,35 @@ describe('MoneyState unit tests', () => {
 							gatherers: 1,
 							money: 353
 						}))
+				})
+			})
+
+			describe('altering window.localStorage', () => {
+				let originalLocalStorage: Storage
+
+				beforeEach(() => {
+					originalLocalStorage = window.localStorage
+				})
+
+				afterEach(() => {
+					(window as any).localStorage = originalLocalStorage
+				})
+
+				describe('loadFromStorage when localStorage.getItem returns null', () => {
+					beforeEach(() => {
+						Object.defineProperty(window, 'localStorage', {
+							value: {
+								getItem: jest.fn(() => null)
+							},
+							writable: true
+						})
+						fixture.loadFromStorage()
+					})
+
+					it('should not affect money or number of gatherers', () => {
+						expect(fixture.money).toBe(353)
+						expect(fixture.numGatherers).toBe(1)
+					})
 				})
 			})
 		})
