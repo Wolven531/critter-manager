@@ -104,6 +104,26 @@ describe('MoneyState unit tests', () => {
 					expect(fixture.numGatherers).toBe(0)
 				})
 			})
+
+			describe('invoke saveToStorage w/ specific argument', () => {
+				let spySetItem: jest.SpyInstance
+	
+				beforeEach(() => {
+					spySetItem = jest.spyOn(window.localStorage, 'setItem')
+					fixture.saveToStorage(5)
+				})
+	
+				it('should invoke window.localStorage.setItem', () => {
+					expect(spySetItem).toHaveBeenCalledTimes(1)
+					expect(spySetItem).toHaveBeenLastCalledWith(
+						'react-hooks-todo.auto_save',
+						JSON.stringify({
+							gathererLevel: 5,
+							gatherers: 1,
+							money: 353
+						}))
+				})
+			})
 		})
 
 		describe('invoke addMoney w/o argument', () => {
