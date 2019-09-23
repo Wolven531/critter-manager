@@ -16,26 +16,30 @@ import { monify } from '../utils'
 
 import './MoneyControls.scss'
 
+const STORAGEKEY_GATHERERS = 'critter-manager.gatherers'
+const STORAGEKEY_GATHERLEVEL = 'critter-manager.gatherLevel'
+const STORAGEKEY_MONEY = 'critter-manager.money'
+
 const MoneyControls = () => {
 	const [gathererTick, setGathererTick] = useState(GATHERER_INITIAL_TICK)
 	const [isShowingModal, setIsShowingModal] = useState(true)
 
 	const [money, setMoney] = useState((): number => {
-		const moneyStr = window.localStorage.getItem('critter-manager.money')
+		const moneyStr = window.localStorage.getItem(STORAGEKEY_MONEY)
 		if (!moneyStr || moneyStr.length < 1) {
 			return 0
 		}
 		return parseInt(moneyStr, 10)
 	})
 	const [numGatherers, setNumGatherers] = useState((): number => {
-		const gathererStr = window.localStorage.getItem('critter-manager.gatherers')
+		const gathererStr = window.localStorage.getItem(STORAGEKEY_GATHERERS)
 		if (!gathererStr || gathererStr.length < 1) {
 			return 0
 		}
 		return parseInt(gathererStr, 10)
 	})
 	const [gatherLevel, setGatherLevel] = useState((): number => {
-		const gatherLevelStr = window.localStorage.getItem('critter-manager.gatherLevel')
+		const gatherLevelStr = window.localStorage.getItem(STORAGEKEY_GATHERLEVEL)
 		if (!gatherLevelStr || gatherLevelStr.length < 1) {
 			return 0
 		}
@@ -88,9 +92,9 @@ const MoneyControls = () => {
 	}, 1000 / GATHERER_TICK_RATE)
 
 	useInterval(() => {
-		window.localStorage.setItem('critter-manager.money', JSON.stringify(money))
-		window.localStorage.setItem('critter-manager.gatherers', JSON.stringify(numGatherers))
-		window.localStorage.setItem('critter-manager.gatherLevel', JSON.stringify(gatherLevel))
+		window.localStorage.setItem(STORAGEKEY_MONEY, JSON.stringify(money))
+		window.localStorage.setItem(STORAGEKEY_GATHERERS, JSON.stringify(numGatherers))
+		window.localStorage.setItem(STORAGEKEY_GATHERLEVEL, JSON.stringify(gatherLevel))
 	}, 1000)
 
 	return (
