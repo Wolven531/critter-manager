@@ -57,7 +57,22 @@ const MoneyControls = () => {
 	}
 	const calculateGathererIncome = (): number => numGatherers * GATHERER_INCOME * (gatherLevel + 1)
 	const collectFromGatherers = () => addMoney(calculateGathererIncome())
+	const executeGatherTick = () => {
+		if (numGatherers < 1) {
+			return
+		}
+		if (gathererTick >= GATHERER_TIME_SECONDS * GATHERER_TICK_RATE) {
+			collectFromGatherers()
+			setGathererTick(GATHERER_INITIAL_TICK)
+			return
+		}
+		setGathererTick(staleGathererTick => staleGathererTick + 1)
+	}
 	const getGathererUpgradeCost = (): number => Math.pow(gatherLevel + 1, 2) * 100
+	const handleUpgradeGatherers = () => {
+		addMoney(-1 * getGathererUpgradeCost())
+		upgradeGatherers()
+	}
 	const upgradeGatherers = () => setGatherLevel(staleGatherLevel => staleGatherLevel + 1)
 	const resetProgress = () => {
 		setMoney(0)
@@ -78,23 +93,7 @@ const MoneyControls = () => {
 	// // NOTE: empty (no arg) to track nothing, fires on mount/unmount
 	// useEffect(handleMounted, [])
 
-	const handleUpgradeGatherers = () => {
-		addMoney(-1 * getGathererUpgradeCost())
-		upgradeGatherers()
-	}
-
-	useInterval(() => {
-		if (numGatherers < 1) {
-			return
-		}
-		if (gathererTick >= GATHERER_TIME_SECONDS * GATHERER_TICK_RATE) {
-			collectFromGatherers()
-			setGathererTick(GATHERER_INITIAL_TICK)
-			return
-		}
-		setGathererTick(staleGathererTick => staleGathererTick + 1)
-	}, 1000 / GATHERER_TICK_RATE)
-
+	useInterval(executeGatherTick, 1000 / GATHERER_TICK_RATE)
 	useInterval(autoSave, 1000)
 
 	return (
