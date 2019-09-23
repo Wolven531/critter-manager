@@ -54,6 +54,7 @@ const MoneyControls = () => {
 	const resetProgress = () => {
 		setMoney(0)
 		setNumGatherers(0)
+		setGatherLevel(0)
 	}
 
 	// // NOTE: This happens before un-render (only once)
