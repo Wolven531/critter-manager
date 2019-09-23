@@ -10,6 +10,10 @@
 	},
 	"jsRules": true,
 	"rules": {
+		"arrow-parens": {
+			"options": "ban-single-arg-parens",
+			"severity": "off"
+		},
 		"indent": {
 			"options": "tabs",
 			"severity": "error"
