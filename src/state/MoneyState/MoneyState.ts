@@ -1,9 +1,6 @@
 import {
 	GATHERER_COST,
-	GATHERER_INCOME,
-	GATHERER_INITIAL_TICK,
-	GATHERER_TICK_RATE,
-	GATHERER_TIME_SECONDS
+	GATHERER_INCOME
 } from '../../constants'
 
 interface IAutoSave {
