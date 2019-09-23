@@ -4,18 +4,15 @@ import React, { useState } from 'react'
 import { useInterval } from '../../hooks/useInterval'
 
 import {
-	STORAGEKEY_GATHERERS,
-	STORAGEKEY_GATHERLEVEL,
-	STORAGEKEY_MONEY
-} from '../../constants'
-
-import {
 	GATHERER_COST,
 	GATHERER_INCOME,
 	GATHERER_INITIAL_TICK,
 	GATHERER_TICK_RATE,
-	GATHERER_TIME_SECONDS
-} from '../../state/MoneyState/MoneyState'
+	GATHERER_TIME_SECONDS,
+	STORAGEKEY_GATHERERS,
+	STORAGEKEY_GATHERLEVEL,
+	STORAGEKEY_MONEY
+} from '../../constants'
 
 import { Modal } from '../../components/Modal/Modal'
 import { monify } from '../utils'
