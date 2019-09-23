@@ -71,5 +71,6 @@ class MoneyState {
 
 export {
 	MoneyState,
-	GATHERER_COST
+	GATHERER_COST,
+	GATHERER_INCOME
 }
