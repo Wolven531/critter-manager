@@ -53,7 +53,7 @@ const App: FC = () => {
 							<CritterList critterState={new CritterState(moneyState.money, [])} />
 						</Route>
 						<Route path="/money">
-							<MoneyControls moneyState={moneyState} upgradeState={upgradeState} />
+							<MoneyControls upgradeState={upgradeState} />
 						</Route>
 						<Route path="/webSocket">
 							<WebSocketClient />

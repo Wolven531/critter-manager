@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
+// import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 import { useInterval } from '../../hooks/useInterval'
 
 import {
 	GATHERER_COST,
-	GATHERER_INCOME,
-	MoneyState
+	GATHERER_INCOME
 } from '../../state/MoneyState/MoneyState'
 import { UpgradeState } from '../../state/UpgradeState/UpgradeState'
 
@@ -19,25 +19,37 @@ const GATHERER_TICK_RATE = 10
 const GATHERER_TIME_SECONDS = 2
 
 interface IMoneyControlsProps {
-	moneyState: MoneyState
 	upgradeState: UpgradeState
 }
 
-const MoneyControls = ({ moneyState, upgradeState }: IMoneyControlsProps) => {
+const MoneyControls = ({ upgradeState }: IMoneyControlsProps) => {
 	const [gathererTick, setGathererTick] = useState(GATHERER_INITIAL_TICK)
 	const [isShowingModal, setIsShowingModal] = useState(true)
 
-	const [money, setMoney] = useState(0)
-	const [numGatherers, setNumGatherers] = useState(0)
+	const [money, setMoney] = useState(() => {
+		const moneyStr = window.localStorage.getItem('critter-manager.money')
+		if (!moneyStr || moneyStr.length < 1) {
+			return 0
+		}
+		return parseInt(moneyStr, 10)
+	})
+	const [numGatherers, setNumGatherers] = useState(() => {
+		const gathererStr = window.localStorage.getItem('critter-manager.gatherers')
+		if (!gathererStr || gathererStr.length < 1) {
+			return 0
+		}
+		return parseInt(gathererStr, 10)
+	})
 
 	const addGatherer = () => {
 		setNumGatherers(staleGatherers => staleGatherers + 1)
+		setMoney(staleMoney => staleMoney - GATHERER_COST)
 	}
 	const addMoney = (funds = 1) => {
 		setMoney(staleMoney => staleMoney + funds)
 	}
 	const calculateGathererIncome = (gatherLevel = 1): number => {
-		return numGatherers + GATHERER_INCOME * (gatherLevel > 0 ? gatherLevel : 1)
+		return numGatherers * GATHERER_INCOME * (gatherLevel > 0 ? gatherLevel : 1)
 	}
 	const collectFromGatherers = (gatherLevel = 1) => {
 		addMoney(calculateGathererIncome(gatherLevel))
@@ -47,34 +59,18 @@ const MoneyControls = ({ moneyState, upgradeState }: IMoneyControlsProps) => {
 		setNumGatherers(0)
 	}
 
-	// NOTE: This happens before un-render (only once)
-	const handleUnmount = () => {
-		return
-	}
+	// // NOTE: This happens before un-render (only once)
+	// const handleUnmount = () => {
+	// 	return
+	// }
 
-	// NOTE: This happens after render (only once)
-	const handleMounted = () => {
-		const loadedInfo = moneyState.loadFromStorage()
+	// // NOTE: This happens after render (only once)
+	// const handleMounted = () => {
+	// 	return handleUnmount
+	// }
 
-		if (loadedInfo) {
-			for (let a = 0; a < loadedInfo.gathererLevel; a++) {
-				upgradeState.upgradeGatherers()
-			}
-		}
-
-		return handleUnmount
-	}
-
-	// NOTE: empty (no arg) to track nothing, fires on mount/unmount
-	useEffect(handleMounted, [])
-
-	const handleBuyGatherer = () => {
-		addGatherer()
-	}
-
-	const handleModalDialogClose = () => {
-		setIsShowingModal(false)
-	}
+	// // NOTE: empty (no arg) to track nothing, fires on mount/unmount
+	// useEffect(handleMounted, [])
 
 	const handleUpgradeGatherers = () => {
 		addMoney(-1 * upgradeState.getGathererUpgradeCost())
@@ -94,14 +90,14 @@ const MoneyControls = ({ moneyState, upgradeState }: IMoneyControlsProps) => {
 	}, 1000 / GATHERER_TICK_RATE)
 
 	useInterval(() => {
-		// console.info(`[${dateFormatter.format(Date.now())}] saving money..., ${money}`)
-		moneyState.saveToStorage(upgradeState.gathererLevel)
+		window.localStorage.setItem('critter-manager.money', JSON.stringify(money))
+		window.localStorage.setItem('critter-manager.gatherers', JSON.stringify(numGatherers))
 	}, 1000)
 
 	return (
 		<article className="money-controls">
 			{isShowingModal && (
-			<Modal handleModalDialogClose={handleModalDialogClose}>
+			<Modal handleModalDialogClose={() => { setIsShowingModal(false) }}>
 				<article>
 					<h1>Welcome to Critter Manager!</h1>
 					<button onClick={() => { resetProgress() }}>Reset Progress</button>
@@ -132,7 +128,7 @@ const MoneyControls = ({ moneyState, upgradeState }: IMoneyControlsProps) => {
 			<section>
 				<button className="buy-gatherer"
 					disabled={money < GATHERER_COST}
-					onClick={handleBuyGatherer}>Buy Gatherer ({GATHERER_COST})</button>
+					onClick={() => { addGatherer() }}>Buy Gatherer ({GATHERER_COST})</button>
 			</section>
 		</article>
 	)
