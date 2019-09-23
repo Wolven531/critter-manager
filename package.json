@@ -116,6 +116,7 @@
 			"!src/serviceWorker.ts"
 		],
 		"coveragePathIgnorePatterns": [
+			"<rootDir>/src/model/.*",
 			"<rootDir>/scripts/.*"
 		],
 		"resolver": "jest-pnp-resolver",
