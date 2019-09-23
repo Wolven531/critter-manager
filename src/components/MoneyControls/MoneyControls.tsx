@@ -50,6 +50,11 @@ const MoneyControls = () => {
 		setNumGatherers(staleGatherers => staleGatherers + 1)
 	}
 	const addMoney = (funds = 1) => setMoney(staleMoney => staleMoney + funds)
+	const autoSave = () => {
+		window.localStorage.setItem(STORAGEKEY_MONEY, JSON.stringify(money))
+		window.localStorage.setItem(STORAGEKEY_GATHERERS, JSON.stringify(numGatherers))
+		window.localStorage.setItem(STORAGEKEY_GATHERLEVEL, JSON.stringify(gatherLevel))
+	}
 	const calculateGathererIncome = (): number => numGatherers * GATHERER_INCOME * (gatherLevel + 1)
 	const collectFromGatherers = () => addMoney(calculateGathererIncome())
 	const getGathererUpgradeCost = (): number => Math.pow(gatherLevel + 1, 2) * 100
@@ -90,11 +95,7 @@ const MoneyControls = () => {
 		setGathererTick(staleGathererTick => staleGathererTick + 1)
 	}, 1000 / GATHERER_TICK_RATE)
 
-	useInterval(() => {
-		window.localStorage.setItem(STORAGEKEY_MONEY, JSON.stringify(money))
-		window.localStorage.setItem(STORAGEKEY_GATHERERS, JSON.stringify(numGatherers))
-		window.localStorage.setItem(STORAGEKEY_GATHERLEVEL, JSON.stringify(gatherLevel))
-	}, 1000)
+	useInterval(autoSave, 1000)
 
 	return (
 		<article className="money-controls">
