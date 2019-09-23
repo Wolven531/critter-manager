@@ -10,7 +10,9 @@ interface IAutoSave {
 }
 
 class MoneyState {
+	// tslint:disable-next-line: variable-name
 	private _currentMoney: number
+	// tslint:disable-next-line: variable-name
 	private _numGatherers: number
 
 	constructor(initialMoney: number) {
