@@ -10,18 +10,13 @@ import {
 	GATHERER_TICK_RATE,
 	GATHERER_TIME_SECONDS
 } from '../../state/MoneyState/MoneyState'
-import { UpgradeState } from '../../state/UpgradeState/UpgradeState'
 
 import { Modal } from '../../components/Modal/Modal'
 import { monify } from '../utils'
 
 import './MoneyControls.scss'
 
-interface IMoneyControlsProps {
-	upgradeState: UpgradeState
-}
-
-const MoneyControls = ({ upgradeState }: IMoneyControlsProps) => {
+const MoneyControls = () => {
 	const [gathererTick, setGathererTick] = useState(GATHERER_INITIAL_TICK)
 	const [isShowingModal, setIsShowingModal] = useState(true)
 
@@ -39,14 +34,23 @@ const MoneyControls = ({ upgradeState }: IMoneyControlsProps) => {
 		}
 		return parseInt(gathererStr, 10)
 	})
+	const [gatherLevel, setGatherLevel] = useState((): number => {
+		const gatherLevelStr = window.localStorage.getItem('critter-manager.gatherLevel')
+		if (!gatherLevelStr || gatherLevelStr.length < 1) {
+			return 0
+		}
+		return parseInt(gatherLevelStr, 10)
+	})
 
 	const addGatherer = () => {
 		setMoney(staleMoney => staleMoney - GATHERER_COST)
 		setNumGatherers(staleGatherers => staleGatherers + 1)
 	}
 	const addMoney = (funds = 1) => setMoney(staleMoney => staleMoney + funds)
-	const calculateGathererIncome = (gatherLevel: number): number => numGatherers * GATHERER_INCOME * (gatherLevel + 1)
-	const collectFromGatherers = (gatherLevel: number) => addMoney(calculateGathererIncome(gatherLevel))
+	const calculateGathererIncome = (): number => numGatherers * GATHERER_INCOME * (gatherLevel + 1)
+	const collectFromGatherers = () => addMoney(calculateGathererIncome())
+	const getGathererUpgradeCost = (): number => Math.pow(gatherLevel + 1, 2) * 100
+	const upgradeGatherers = () => setGatherLevel(staleGatherLevel => staleGatherLevel + 1)
 	const resetProgress = () => {
 		setMoney(0)
 		setNumGatherers(0)
@@ -66,8 +70,8 @@ const MoneyControls = ({ upgradeState }: IMoneyControlsProps) => {
 	// useEffect(handleMounted, [])
 
 	const handleUpgradeGatherers = () => {
-		addMoney(-1 * upgradeState.getGathererUpgradeCost())
-		upgradeState.upgradeGatherers()
+		addMoney(-1 * getGathererUpgradeCost())
+		upgradeGatherers()
 	}
 
 	useInterval(() => {
@@ -76,7 +80,7 @@ const MoneyControls = ({ upgradeState }: IMoneyControlsProps) => {
 		}
 		if (gathererTick >= GATHERER_TIME_SECONDS * GATHERER_TICK_RATE) {
 			setGathererTick(GATHERER_INITIAL_TICK)
-			collectFromGatherers(upgradeState.gathererLevel)
+			collectFromGatherers()
 			return
 		}
 		setGathererTick(gathererTick + 1)
@@ -85,6 +89,7 @@ const MoneyControls = ({ upgradeState }: IMoneyControlsProps) => {
 	useInterval(() => {
 		window.localStorage.setItem('critter-manager.money', JSON.stringify(money))
 		window.localStorage.setItem('critter-manager.gatherers', JSON.stringify(numGatherers))
+		window.localStorage.setItem('critter-manager.gatherLevel', JSON.stringify(gatherLevel))
 	}, 1000)
 
 	return (
@@ -101,18 +106,12 @@ const MoneyControls = ({ upgradeState }: IMoneyControlsProps) => {
 				{numGatherers < 1
 					? null
 					: <article>
-						<p>
-							Gatherers: {numGatherers}
-						</p>
-						<p>
-							Gatherer Level: {upgradeState.gathererLevel}
-						</p>
-						<p>
-							Gatherer Income = ${calculateGathererIncome(upgradeState.gathererLevel)}
-						</p>
+						<p>Gatherers: {numGatherers}</p>
+						<p>Gatherer Level: {gatherLevel}</p>
+						<p>Gatherer Income = ${calculateGathererIncome()}</p>
 						<button className="upgrade"
-							disabled={money < upgradeState.getGathererUpgradeCost()}
-							onClick={() => { handleUpgradeGatherers() }}>Upgrade Gatherers ({upgradeState.getGathererUpgradeCost()})</button>
+							disabled={money < getGathererUpgradeCost()}
+							onClick={() => { handleUpgradeGatherers() }}>Upgrade Gatherers ({getGathererUpgradeCost()})</button>
 						<br />
 						<progress value={gathererTick} max={GATHERER_TIME_SECONDS * GATHERER_TICK_RATE} />
 					</article>}
