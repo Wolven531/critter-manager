@@ -83,7 +83,7 @@ const MoneyControls = () => {
 			collectFromGatherers()
 			return
 		}
-		setGathererTick(gathererTick + 1)
+		setGathererTick(staleGathererTick => staleGathererTick + 1)
 	}, 1000 / GATHERER_TICK_RATE)
 
 	useInterval(() => {
