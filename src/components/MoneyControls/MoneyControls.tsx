@@ -80,8 +80,8 @@ const MoneyControls = () => {
 			return
 		}
 		if (gathererTick >= GATHERER_TIME_SECONDS * GATHERER_TICK_RATE) {
-			setGathererTick(GATHERER_INITIAL_TICK)
 			collectFromGatherers()
+			setGathererTick(GATHERER_INITIAL_TICK)
 			return
 		}
 		setGathererTick(staleGathererTick => staleGathererTick + 1)
