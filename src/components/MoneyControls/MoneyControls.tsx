@@ -47,8 +47,8 @@ const MoneyControls = ({ upgradeState }: IMoneyControlsProps) => {
 	const addMoney = (funds = 1) => {
 		setMoney(staleMoney => staleMoney + funds)
 	}
-	const calculateGathererIncome = (gatherLevel = 1): number => {
-		return numGatherers * GATHERER_INCOME * (gatherLevel > 0 ? gatherLevel : 1)
+	const calculateGathererIncome = (gatherLevel: number): number => {
+		return numGatherers * GATHERER_INCOME * (gatherLevel + 1)
 	}
 	const collectFromGatherers = (gatherLevel = 1) => {
 		addMoney(calculateGathererIncome(gatherLevel))
