@@ -2,8 +2,12 @@ import React, { useEffect, useState } from 'react'
 
 import { useInterval } from '../../hooks/useInterval'
 
+import {
+	GATHERER_COST,
+	GATHERER_INCOME,
+	MoneyState
+} from '../../state/MoneyState/MoneyState'
 import { UpgradeState } from '../../state/UpgradeState/UpgradeState'
-import { GATHERER_COST, MoneyState } from '../../state/MoneyState/MoneyState'
 
 import { Modal } from '../../components/Modal/Modal'
 import { monify } from '../utils'
@@ -23,14 +27,25 @@ const MoneyControls = ({ moneyState, upgradeState }: IMoneyControlsProps) => {
 	const [gathererTick, setGathererTick] = useState(GATHERER_INITIAL_TICK)
 	const [isShowingModal, setIsShowingModal] = useState(true)
 
-	const {
-		addGatherer,
-		addMoney,
-		calculateGathererIncome,
-		collectFromGatherers,
-		numGatherers,
-		money,
-		resetProgress } = moneyState
+	const [money, setMoney] = useState(0)
+	const [numGatherers, setNumGatherers] = useState(0)
+
+	const addGatherer = () => {
+		setNumGatherers(staleGatherers => staleGatherers + 1)
+	}
+	const addMoney = (funds = 1) => {
+		setMoney(staleMoney => staleMoney + funds)
+	}
+	const calculateGathererIncome = (gatherLevel = 1): number => {
+		return numGatherers + GATHERER_INCOME * (gatherLevel > 0 ? gatherLevel : 1)
+	}
+	const collectFromGatherers = (gatherLevel = 1) => {
+		addMoney(calculateGathererIncome(gatherLevel))
+	}
+	const resetProgress = () => {
+		setMoney(0)
+		setNumGatherers(0)
+	}
 
 	// NOTE: This happens before un-render (only once)
 	const handleUnmount = () => {
