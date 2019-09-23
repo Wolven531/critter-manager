@@ -1,5 +1,8 @@
 const GATHERER_COST = 10
 const GATHERER_INCOME = 1
+const GATHERER_INITIAL_TICK = 0
+const GATHERER_TICK_RATE = 10
+const GATHERER_TIME_SECONDS = 2
 
 interface IAutoSave {
 	gatherers: number
@@ -72,5 +75,8 @@ class MoneyState {
 export {
 	MoneyState,
 	GATHERER_COST,
-	GATHERER_INCOME
+	GATHERER_INCOME,
+	GATHERER_INITIAL_TICK,
+	GATHERER_TICK_RATE,
+	GATHERER_TIME_SECONDS
 }

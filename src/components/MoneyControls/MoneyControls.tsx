@@ -5,7 +5,10 @@ import { useInterval } from '../../hooks/useInterval'
 
 import {
 	GATHERER_COST,
-	GATHERER_INCOME
+	GATHERER_INCOME,
+	GATHERER_INITIAL_TICK,
+	GATHERER_TICK_RATE,
+	GATHERER_TIME_SECONDS
 } from '../../state/MoneyState/MoneyState'
 import { UpgradeState } from '../../state/UpgradeState/UpgradeState'
 
@@ -13,10 +16,6 @@ import { Modal } from '../../components/Modal/Modal'
 import { monify } from '../utils'
 
 import './MoneyControls.scss'
-
-const GATHERER_INITIAL_TICK = 0
-const GATHERER_TICK_RATE = 10
-const GATHERER_TIME_SECONDS = 2
 
 interface IMoneyControlsProps {
 	upgradeState: UpgradeState
