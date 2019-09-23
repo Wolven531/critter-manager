@@ -25,14 +25,14 @@ const MoneyControls = ({ upgradeState }: IMoneyControlsProps) => {
 	const [gathererTick, setGathererTick] = useState(GATHERER_INITIAL_TICK)
 	const [isShowingModal, setIsShowingModal] = useState(true)
 
-	const [money, setMoney] = useState(() => {
+	const [money, setMoney] = useState((): number => {
 		const moneyStr = window.localStorage.getItem('critter-manager.money')
 		if (!moneyStr || moneyStr.length < 1) {
 			return 0
 		}
 		return parseInt(moneyStr, 10)
 	})
-	const [numGatherers, setNumGatherers] = useState(() => {
+	const [numGatherers, setNumGatherers] = useState((): number => {
 		const gathererStr = window.localStorage.getItem('critter-manager.gatherers')
 		if (!gathererStr || gathererStr.length < 1) {
 			return 0
@@ -41,18 +41,12 @@ const MoneyControls = ({ upgradeState }: IMoneyControlsProps) => {
 	})
 
 	const addGatherer = () => {
-		setNumGatherers(staleGatherers => staleGatherers + 1)
 		setMoney(staleMoney => staleMoney - GATHERER_COST)
+		setNumGatherers(staleGatherers => staleGatherers + 1)
 	}
-	const addMoney = (funds = 1) => {
-		setMoney(staleMoney => staleMoney + funds)
-	}
-	const calculateGathererIncome = (gatherLevel: number): number => {
-		return numGatherers * GATHERER_INCOME * (gatherLevel + 1)
-	}
-	const collectFromGatherers = (gatherLevel = 1) => {
-		addMoney(calculateGathererIncome(gatherLevel))
-	}
+	const addMoney = (funds = 1) => setMoney(staleMoney => staleMoney + funds)
+	const calculateGathererIncome = (gatherLevel: number): number => numGatherers * GATHERER_INCOME * (gatherLevel + 1)
+	const collectFromGatherers = (gatherLevel: number) => addMoney(calculateGathererIncome(gatherLevel))
 	const resetProgress = () => {
 		setMoney(0)
 		setNumGatherers(0)
@@ -96,32 +90,34 @@ const MoneyControls = ({ upgradeState }: IMoneyControlsProps) => {
 	return (
 		<article className="money-controls">
 			{isShowingModal && (
-			<Modal handleModalDialogClose={() => { setIsShowingModal(false) }}>
-				<article>
-					<h1>Welcome to Critter Manager!</h1>
-					<button onClick={() => { resetProgress() }}>Reset Progress</button>
-				</article>
-			</Modal>)}
+				<Modal handleModalDialogClose={() => { setIsShowingModal(false) }}>
+					<article>
+						<h1>Welcome to Critter Manager!</h1>
+						<button onClick={() => { resetProgress() }}>Reset Progress</button>
+					</article>
+				</Modal>)}
 			<section>
 				<p>Money: {monify(money)}</p>
 				{numGatherers < 1
 					? null
 					: <article>
-						Gatherers: {numGatherers}
-						<br/>
-						Gatherer Level: {upgradeState.gathererLevel}
-						<br/>
-						Gatherer Income = ${calculateGathererIncome(upgradeState.gathererLevel)}
-						<br/>
+						<p>
+							Gatherers: {numGatherers}
+						</p>
+						<p>
+							Gatherer Level: {upgradeState.gathererLevel}
+						</p>
+						<p>
+							Gatherer Income = ${calculateGathererIncome(upgradeState.gathererLevel)}
+						</p>
 						<button className="upgrade"
 							disabled={money < upgradeState.getGathererUpgradeCost()}
 							onClick={() => { handleUpgradeGatherers() }}>Upgrade Gatherers ({upgradeState.getGathererUpgradeCost()})</button>
-						<br/>
+						<br />
 						<progress value={gathererTick} max={GATHERER_TIME_SECONDS * GATHERER_TICK_RATE} />
 					</article>}
 				<article>
-					<button className="add-money"
-						onClick={() => { addMoney() }}>Add Money</button>
+					<button className="add-money" onClick={() => { addMoney() }}>Add Money</button>
 				</article>
 			</section>
 			<section>
