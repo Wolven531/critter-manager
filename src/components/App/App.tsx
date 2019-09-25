@@ -10,7 +10,7 @@ import {
 import { CritterList } from '../../views/CritterList/CritterList'
 import { MoneyControls } from '../MoneyControls/MoneyControls'
 import { PageNotFound } from '../PageNotFound/PageNotFound'
-import { WebSocketClient } from '../WebSocketClient/WebSocketClient'
+// import { WebSocketClient } from '../WebSocketClient/WebSocketClient'
 
 import { CritterState } from '../../state/CritterState/CritterState'
 import { MoneyState } from '../../state/MoneyState/MoneyState'
@@ -47,7 +47,9 @@ const App: FC = () => {
 					<br/>
 					<Link to="/money">Money</Link>
 					<br/>
+					{/*
 					<Link to="/webSocket">Web Socket</Link>
+					*/}
 					<Switch>
 						<Route exact={true} path="/">
 							<CritterList critterState={new CritterState(moneyState.money, [])} />
@@ -55,9 +57,11 @@ const App: FC = () => {
 						<Route path="/money">
 							<MoneyControls />
 						</Route>
+						{/*
 						<Route path="/webSocket">
 							<WebSocketClient />
 						</Route>
+						*/}
 						<Route>
 							<PageNotFound />
 						</Route>
