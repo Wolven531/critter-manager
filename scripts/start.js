@@ -53,12 +53,8 @@ if (process.env.HOST) {
 			)}`
 		)
 	)
-	console.log(
-		`If this was unintentional, check that you haven't mistakenly set it in your shell.`
-	)
-	console.log(
-		`Learn more here: ${chalk.yellow('https://bit.ly/CRA-advanced-config')}`
-	)
+	console.log(`If this was unintentional, check that you haven't mistakenly set it in your shell.`)
+	console.log(`Learn more here: ${chalk.yellow('https://bit.ly/CRA-advanced-config')}`)
 	console.log()
 }
 
@@ -105,7 +101,7 @@ checkBrowsers(paths.appPath, isInteractive)
 			proxyConfig,
 			urls.lanUrlForConfig
 		)
-		let wss
+		// let wss
 		const devServer = new WebpackDevServer(compiler, serverConfig)
 		// Launch WebpackDevServer.
 		devServer.listen(port, HOST, err => {
@@ -131,7 +127,7 @@ checkBrowsers(paths.appPath, isInteractive)
 		const terminationCodes = ['SIGINT', 'SIGTERM']
 		terminationCodes.forEach(function(sig) {
 			process.on(sig, function() {
-				wss.close()
+				// wss.close()
 				devServer.close()
 				process.exit()
 			})
