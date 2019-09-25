@@ -121,6 +121,37 @@ module.exports = function(webpackEnv) {
 				? 'source-map'
 				: false
 			: isEnvDevelopment && 'cheap-module-source-map',
+		// devServer: {
+			////// attempt 1, no luck
+			// before: function(app, server) {
+			// 	console.log('running in the before...')
+			// 	app.get('*', function(req, res) {
+			// 		return res.json({ asdf: 'qewr' })
+			// 	})
+			// 	// app.get('/some/path', function(req, res) {
+			// 	// 	res.json({ custom: 'response' })
+			// 	// })
+			// }
+			////// attempt 2, no luck
+			// proxy: { 
+			// 	'/**': {  //catch all requests
+			// 		target: '/index.html',  //default target
+			// 		secure: false,
+			// 		bypass: function(req, res, opt){
+			// 			console.log('uhhh....?')
+			// 			//your custom code to check for any exceptions
+			// 			//console.log('bypass check', {req: req, res:res, opt: opt});
+			// 			if(req.path.indexOf('/img/') !== -1 || req.path.indexOf('/public/') !== -1){
+			// 				return '/'
+			// 			}
+				
+			// 			if (req.headers.accept.indexOf('html') !== -1) {
+			// 				return '/index.html'
+			// 			}
+			// 		}
+			// 	}
+			// }
+		// },
 		// These are the "entry points" to our application.
 		// This means they will be the "root" imports that are included in JS bundle.
 		entry: [
