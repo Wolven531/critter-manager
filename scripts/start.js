@@ -102,16 +102,22 @@ checkBrowsers(paths.appPath, isInteractive)
 			res.json({ asdf: 'qwer' })
 		})
 
-		secondApp.listen(parseInt(port, 10) + 1)
-			.catch(err => {
-				console.log('Error in second app, logging and exiting process...')
-				if (err && err.message) {
-					console.log(err.message)
-				} else if (err) {
-					console.log(err)
-				}
-				process.exit(1)
-			})
+		const supportingAppPort = parseInt(port, 10) + 1
+		let supportingServer
+
+		try {
+			supportingServer = secondApp.listen(supportingAppPort)
+		} catch (supportingErr) {
+			console.log('Error in supporting server, logging and exiting process...')
+			if (supportingErr && supportingErr.message) {
+				console.log(supportingErr.message)
+			} else if (supportingErr) {
+				console.log(supportingErr)
+			}
+			process.exit(1)
+			return
+		}
+
 		const devServer = new WebpackDevServer(compiler, serverConfig)
 		devServer.listen(port, HOST, err => { // Launch WebpackDevServer
 			if (err) {
@@ -131,12 +137,15 @@ checkBrowsers(paths.appPath, isInteractive)
 			// })
 			console.log(chalk.cyan('Starting the development server...\n'))
 			openBrowser(urls.localUrlForBrowser)
+			openBrowser(urls.localUrlForBrowser.replace(`:${port}`, `:${supportingAppPort}`))
 		})
 
 		TERMINATION_CODES.forEach(function(sig) {
 			process.on(sig, function() {
 				// wss.close()
-				secondApp.close()
+				if (supportingServer) {
+					supportingServer.close()
+				}
 				devServer.close()
 				process.exit()
 			})
