@@ -15,8 +15,10 @@ process.on('unhandledRejection', err => {
 const fs = require('fs')
 const webpack = require('webpack')
 const WebpackDevServer = require('webpack-dev-server')
-const express = require('express')
-const secondApp = express()
+// NOTE: rather than start second app here (never works when on hosted resource like Heroku),
+// client should connect to separate running app (whether it is express or not)
+// const express = require('express')
+// const secondApp = express()
 
 // react-dev-util requires
 const chalk = require('react-dev-utils/chalk')
@@ -99,34 +101,34 @@ checkBrowsers(paths.appPath, isInteractive)
 		const serverConfig = createDevServerConfig(proxyConfig, urls.lanUrlForConfig)
 		// let wss
 
-		let numHits = 0
-		secondApp.get('/*', function(req, res) {
-			numHits++
-			res.json({
-				numHits,
-				req: {
-					url: req.url,
-					method: req.method,
-					headers: req.headers
-				}
-			})
-		})
+		// let numHits = 0
+		// secondApp.get('/*', function(req, res) {
+		// 	numHits++
+		// 	res.json({
+		// 		numHits,
+		// 		req: {
+		// 			url: req.url,
+		// 			method: req.method,
+		// 			headers: req.headers
+		// 		}
+		// 	})
+		// })
 
-		const supportingAppPort = parseInt(port, 10) + 1
-		let supportingServer
+		// const supportingAppPort = parseInt(port, 10) + 1
+		// let supportingServer
 
-		try {
-			supportingServer = secondApp.listen(supportingAppPort)
-		} catch (supportingErr) {
-			console.log('Error in supporting server, logging and exiting process...')
-			if (supportingErr && supportingErr.message) {
-				console.log(supportingErr.message)
-			} else if (supportingErr) {
-				console.log(supportingErr)
-			}
-			process.exit(1)
-			return
-		}
+		// try {
+		// 	supportingServer = secondApp.listen(supportingAppPort)
+		// } catch (supportingErr) {
+		// 	console.log('Error in supporting server, logging and exiting process...')
+		// 	if (supportingErr && supportingErr.message) {
+		// 		console.log(supportingErr.message)
+		// 	} else if (supportingErr) {
+		// 		console.log(supportingErr)
+		// 	}
+		// 	process.exit(1)
+		// 	return
+		// }
 
 		const devServer = new WebpackDevServer(compiler, serverConfig)
 		devServer.listen(port, HOST, err => { // Launch WebpackDevServer
@@ -153,9 +155,9 @@ checkBrowsers(paths.appPath, isInteractive)
 		TERMINATION_CODES.forEach(function(sig) {
 			process.on(sig, function() {
 				// wss.close()
-				if (supportingServer) {
-					supportingServer.close()
-				}
+				// if (supportingServer) {
+				// 	supportingServer.close()
+				// }
 				devServer.close()
 				process.exit()
 			})
