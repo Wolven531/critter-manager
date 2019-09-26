@@ -8,12 +8,10 @@ import {
 	GATHERER_INCOME,
 	GATHERER_INITIAL_TICK,
 	GATHERER_TICK_RATE,
-	GATHERER_TIME_SECONDS,
-	STORAGEKEY_GATHERERS,
-	STORAGEKEY_GATHERLEVEL,
-	STORAGEKEY_MONEY
+	GATHERER_TIME_SECONDS
 } from '../../constants'
 
+import { AutoSave } from '../../model/AutoSave'
 import {
 	initGatherLevel,
 	initMoney,
@@ -26,22 +24,16 @@ import './MoneyControls.scss'
 
 const MoneyControls = () => {
 	const [gathererTick, setGathererTick] = useState(GATHERER_INITIAL_TICK)
+	const [gatherLevel, setGatherLevel] = useState(initGatherLevel)
 	const [isShowingModal, setIsShowingModal] = useState(true)
-
 	const [money, setMoney] = useState(initMoney)
 	const [numGatherers, setNumGatherers] = useState(initNumGatherers)
-	const [gatherLevel, setGatherLevel] = useState(initGatherLevel)
 
 	const addGatherer = () => {
 		setMoney(staleMoney => staleMoney - GATHERER_COST)
 		setNumGatherers(staleGatherers => staleGatherers + 1)
 	}
 	const addMoney = (funds = 1) => setMoney(staleMoney => staleMoney + funds)
-	const autoSave = () => {
-		window.localStorage.setItem(STORAGEKEY_MONEY, JSON.stringify(money))
-		window.localStorage.setItem(STORAGEKEY_GATHERERS, JSON.stringify(numGatherers))
-		window.localStorage.setItem(STORAGEKEY_GATHERLEVEL, JSON.stringify(gatherLevel))
-	}
 	const calculateGathererIncome = (): number => numGatherers * GATHERER_INCOME * (gatherLevel + 1)
 	const collectFromGatherers = () => addMoney(calculateGathererIncome())
 	const executeGatherTick = () => {
@@ -81,7 +73,7 @@ const MoneyControls = () => {
 	// useEffect(handleMounted, [])
 
 	useInterval(executeGatherTick, 1000 / GATHERER_TICK_RATE)
-	useInterval(autoSave, 1000)
+	useInterval(() => AutoSave.saveToLocal(gatherLevel, money, numGatherers), 1000)
 
 	return (
 		<article className="money-controls">
