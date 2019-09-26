@@ -14,42 +14,23 @@ import {
 	STORAGEKEY_MONEY
 } from '../../constants'
 
+import {
+	initGatherLevel,
+	initMoney,
+	initNumGatherers
+} from '../../state/initializers'
 import { Modal } from '../../components/Modal/Modal'
 import { monify } from '../utils'
 
 import './MoneyControls.scss'
 
-const initMoneyState = (): number => {
-	const moneyStr = window.localStorage.getItem(STORAGEKEY_MONEY)
-	if (!moneyStr || moneyStr.length < 1) {
-		return 0
-	}
-	return parseInt(moneyStr, 10)
-}
-
-const initNumGatherersState = (): number => {
-	const gathererStr = window.localStorage.getItem(STORAGEKEY_GATHERERS)
-	if (!gathererStr || gathererStr.length < 1) {
-		return 0
-	}
-	return parseInt(gathererStr, 10)
-}
-
-const initGatherLevelState = (): number => {
-	const gatherLevelStr = window.localStorage.getItem(STORAGEKEY_GATHERLEVEL)
-	if (!gatherLevelStr || gatherLevelStr.length < 1) {
-		return 0
-	}
-	return parseInt(gatherLevelStr, 10)
-}
-
 const MoneyControls = () => {
 	const [gathererTick, setGathererTick] = useState(GATHERER_INITIAL_TICK)
 	const [isShowingModal, setIsShowingModal] = useState(true)
 
-	const [money, setMoney] = useState(initMoneyState)
-	const [numGatherers, setNumGatherers] = useState(initNumGatherersState)
-	const [gatherLevel, setGatherLevel] = useState(initGatherLevelState)
+	const [money, setMoney] = useState(initMoney)
+	const [numGatherers, setNumGatherers] = useState(initNumGatherers)
+	const [gatherLevel, setGatherLevel] = useState(initGatherLevel)
 
 	const addGatherer = () => {
 		setMoney(staleMoney => staleMoney - GATHERER_COST)
