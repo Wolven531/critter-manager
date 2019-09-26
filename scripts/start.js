@@ -149,7 +149,7 @@ checkBrowsers(paths.appPath, isInteractive)
 			// })
 			console.log(chalk.cyan('Starting the development server...\n'))
 			openBrowser(urls.localUrlForBrowser)
-			openBrowser(urls.localUrlForBrowser.replace(`:${port}`, `:${supportingAppPort}`))
+			// openBrowser(urls.localUrlForBrowser.replace(`:${port}`, `:${supportingAppPort}`))
 		})
 
 		TERMINATION_CODES.forEach(function(sig) {
