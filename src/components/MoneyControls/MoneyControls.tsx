@@ -14,6 +14,7 @@ import {
 import { AutoSave } from '../../model/AutoSave'
 import {
 	initGatherROILevel,
+	initGatherSpeedLevel,
 	initMoney,
 	initNumGatherers
 } from '../../state/initializers'
@@ -25,6 +26,7 @@ import './MoneyControls.scss'
 const MoneyControls = () => {
 	const [gathererTick, setGathererTick] = useState(GATHERER_INITIAL_TICK)
 	const [gatherROILevel, setGatherROILevel] = useState(initGatherROILevel)
+	const [gatherSpeedLevel, setGatherSpeedLevel] = useState(initGatherSpeedLevel)
 	const [isShowingModal, setIsShowingModal] = useState(true)
 	const [money, setMoney] = useState(initMoney)
 	const [numGatherers, setNumGatherers] = useState(initNumGatherers)
@@ -72,8 +74,8 @@ const MoneyControls = () => {
 	// // NOTE: empty (no arg) to track nothing, fires on mount/unmount
 	// useEffect(handleMounted, [])
 
-	useInterval(executeGatherTick, 1000 / GATHERER_TICK_RATE)
-	useInterval(() => AutoSave.saveToLocal(gatherROILevel, money, numGatherers), 1000)
+	useInterval(executeGatherTick, 1000 / GATHERER_TICK_RATE / gatherSpeedLevel)
+	useInterval(() => AutoSave.saveToLocal(gatherROILevel, gatherSpeedLevel, money, numGatherers), 1000)
 
 	return (
 		<article className="money-controls">
