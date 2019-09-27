@@ -1,15 +1,15 @@
 import {
 	STORAGEKEY_MONEY,
 	STORAGEKEY_GATHERERS,
-	STORAGEKEY_GATHERLEVEL
+	STORAGEKEY_GATHERROILEVEL
 } from '../constants'
 
-const initGatherLevel = (): number => {
-	const gatherLevelStr = window.localStorage.getItem(STORAGEKEY_GATHERLEVEL)
-	if (!gatherLevelStr || gatherLevelStr.length < 1) {
+const initGatherROILevel = (): number => {
+	const gatherROILevelStr = window.localStorage.getItem(STORAGEKEY_GATHERROILEVEL)
+	if (!gatherROILevelStr || gatherROILevelStr.length < 1) {
 		return 0
 	}
-	return parseInt(gatherLevelStr, 10)
+	return parseInt(gatherROILevelStr, 10)
 }
 
 const initMoney = (): number => {
@@ -29,7 +29,7 @@ const initNumGatherers = (): number => {
 }
 
 export {
-	initGatherLevel,
+	initGatherROILevel,
 	initMoney,
 	initNumGatherers
 }

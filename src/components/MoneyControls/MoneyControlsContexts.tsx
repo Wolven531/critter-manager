@@ -10,7 +10,7 @@ import {
 	GATHERER_TICK_RATE,
 	GATHERER_TIME_SECONDS,
 	STORAGEKEY_GATHERERS,
-	STORAGEKEY_GATHERLEVEL,
+	STORAGEKEY_GATHERROILEVEL,
 	STORAGEKEY_MONEY
 } from '../../constants'
 
@@ -72,7 +72,7 @@ const GathererProvider = (props: any) => {
 	if (gathererStr && gathererStr.length > 0) {
 		gatherInformation.numGatherers = parseInt(gathererStr, 10)
 	}
-	const gatherLevelStr = window.localStorage.getItem(STORAGEKEY_GATHERLEVEL)
+	const gatherLevelStr = window.localStorage.getItem(STORAGEKEY_GATHERROILEVEL)
 	if (gatherLevelStr && gatherLevelStr.length > 0) {
 		gatherInformation.gatherLevel = parseInt(gatherLevelStr, 10)
 	}

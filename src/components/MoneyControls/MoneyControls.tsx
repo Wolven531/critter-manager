@@ -13,7 +13,7 @@ import {
 
 import { AutoSave } from '../../model/AutoSave'
 import {
-	initGatherLevel,
+	initGatherROILevel,
 	initMoney,
 	initNumGatherers
 } from '../../state/initializers'
@@ -24,7 +24,7 @@ import './MoneyControls.scss'
 
 const MoneyControls = () => {
 	const [gathererTick, setGathererTick] = useState(GATHERER_INITIAL_TICK)
-	const [gatherROILevel, setGatherROILevel] = useState(initGatherLevel)
+	const [gatherROILevel, setGatherROILevel] = useState(initGatherROILevel)
 	const [isShowingModal, setIsShowingModal] = useState(true)
 	const [money, setMoney] = useState(initMoney)
 	const [numGatherers, setNumGatherers] = useState(initNumGatherers)
