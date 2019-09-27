@@ -16,7 +16,7 @@ const initGatherROILevel = (): number => {
 const initGatherSpeedLevel = (): number => {
 	const gatherSpeedLevelStr = window.localStorage.getItem(STORAGEKEY_GATHERSPEEDLEVEL)
 	if (!gatherSpeedLevelStr || gatherSpeedLevelStr.length < 1) {
-		return 0
+		return 1
 	}
 	return parseInt(gatherSpeedLevelStr, 10)
 }
