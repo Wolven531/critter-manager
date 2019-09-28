@@ -38,8 +38,8 @@ const MoneyControls = () => {
 	const addMoney = (funds = 1) => setMoney(staleMoney => staleMoney + funds)
 	const calcGatherTime = (): number => 1000 / GATHERER_TICK_RATE / gatherSpeedLevel
 	const calcGatherIncome = (): number => GATHERER_INCOME * (gatherROILevel + 1)
-	const calcGatherIncomeUpgradeCost = (): number => Math.pow(gatherROILevel + 1, 2) * 70
-	const calcGatherSpeedUpgradeCost = (): number => Math.pow(gatherSpeedLevel + 1, 3) * 33
+	const calcGatherIncomeUpgradeCost = (): number => Math.pow(gatherROILevel + 1, 2) * 33
+	const calcGatherSpeedUpgradeCost = (): number => Math.pow(gatherSpeedLevel + 1, 3) * 66
 	const calcGatherTotalIncome = (): number => numGatherers * calcGatherIncome()
 	const collectFromGatherers = () => addMoney(calcGatherTotalIncome())
 	const executeGatherTick = () => {
