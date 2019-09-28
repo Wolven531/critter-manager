@@ -122,7 +122,7 @@ const MoneyControls = () => {
 			<section>
 				<button className="buy-gatherer"
 					disabled={money < GATHERER_COST}
-					onClick={() => { addGatherer() }}>Buy Gatherer ({GATHERER_COST})</button>
+					onClick={() => { addGatherer() }}>Buy Gatherer ({monify(GATHERER_COST)})</button>
 			</section>
 		</article>
 	)
