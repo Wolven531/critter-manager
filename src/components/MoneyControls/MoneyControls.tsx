@@ -15,22 +15,22 @@ import {
 import { Modal } from '../../components/Modal/Modal'
 import { AutoSave } from '../../model/AutoSave'
 import {
-	initGatherROILevel,
+	initGatherCount,
+	initGatherIncomeLevel,
 	initGatherSpeedLevel,
-	initMoney,
-	initNumGatherers
+	initMoney
 } from '../../state/initializers'
 import { monify } from '../utils'
 
 import './MoneyControls.scss'
 
 const MoneyControls = () => {
-	const [gatherIncomeLevel, setGatherIncomeLevel] = useState(initGatherROILevel)
+	const [gatherIncomeLevel, setGatherIncomeLevel] = useState(initGatherIncomeLevel)
 	const [gatherSpeedLevel, setGatherSpeedLevel] = useState(initGatherSpeedLevel)
 	const [gatherTick, setGatherTick] = useState(GATHERER_INITIAL_TICK)
 	const [isShowingModal, setIsShowingModal] = useState(true)
 	const [money, setMoney] = useState(initMoney)
-	const [gatherCount, setGatherCount] = useState(initNumGatherers)
+	const [gatherCount, setGatherCount] = useState(initGatherCount)
 
 	const addGatherer = () => {
 		setMoney(staleMoney => staleMoney - GATHERER_COST)

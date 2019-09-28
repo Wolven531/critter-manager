@@ -9,8 +9,8 @@ import {
 	GATHERER_INITIAL_TICK,
 	GATHERER_TICK_RATE,
 	GATHERER_TIME_SECONDS,
-	STORAGEKEY_GATHERERS,
-	STORAGEKEY_GATHERROILEVEL,
+	STORAGEKEY_GATHERCOUNT,
+	STORAGEKEY_GATHERINCOMELEVEL,
 	STORAGEKEY_MONEY
 } from '../../constants'
 
@@ -68,11 +68,11 @@ const GathererProvider = (props: any) => {
 	}
 	const [gatherInfo, setGatherInfo] = useState(gatherInformation)
 
-	const gathererStr = window.localStorage.getItem(STORAGEKEY_GATHERERS)
+	const gathererStr = window.localStorage.getItem(STORAGEKEY_GATHERCOUNT)
 	if (gathererStr && gathererStr.length > 0) {
 		gatherInformation.numGatherers = parseInt(gathererStr, 10)
 	}
-	const gatherLevelStr = window.localStorage.getItem(STORAGEKEY_GATHERROILEVEL)
+	const gatherLevelStr = window.localStorage.getItem(STORAGEKEY_GATHERINCOMELEVEL)
 	if (gatherLevelStr && gatherLevelStr.length > 0) {
 		gatherInformation.gatherLevel = parseInt(gatherLevelStr, 10)
 	}
@@ -122,7 +122,7 @@ const MoneyControls = () => {
 		return parseInt(moneyStr, 10)
 	})
 	// const [numGatherers, setNumGatherers] = useState((): number => {
-	// 	const gathererStr = window.localStorage.getItem(STORAGEKEY_GATHERERS)
+	// 	const gathererStr = window.localStorage.getItem(STORAGEKEY_GATHERCOUNT)
 	// 	if (!gathererStr || gathererStr.length < 1) {
 	// 		return 0
 	// 	}
@@ -184,7 +184,7 @@ const MoneyControls = () => {
 	// auto-save functionality
 	useInterval(() => {
 		window.localStorage.setItem(STORAGEKEY_MONEY, JSON.stringify(money))
-		// window.localStorage.setItem(STORAGEKEY_GATHERERS, JSON.stringify(numGatherers))
+		// window.localStorage.setItem(STORAGEKEY_GATHERCOUNT, JSON.stringify(numGatherers))
 		// window.localStorage.setItem(STORAGEKEY_GATHERLEVEL, JSON.stringify(gatherLevel))
 	}, 1000)
 

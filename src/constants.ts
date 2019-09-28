@@ -5,7 +5,7 @@ export const GATHERER_MAX_SPEED = 10
 export const GATHERER_TICK_RATE = 10
 export const GATHERER_TIME_SECONDS = 2
 
-export const STORAGEKEY_GATHERERS = 'critter-manager.gatherers'
-export const STORAGEKEY_GATHERROILEVEL = 'critter-manager.gatherROILevel'
+export const STORAGEKEY_GATHERCOUNT = 'critter-manager.gatherers'
+export const STORAGEKEY_GATHERINCOMELEVEL = 'critter-manager.gatherROILevel'
 export const STORAGEKEY_GATHERSPEEDLEVEL = 'critter-manager.gatherSpeedLevel'
 export const STORAGEKEY_MONEY = 'critter-manager.money'
