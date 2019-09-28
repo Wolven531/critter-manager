@@ -36,8 +36,9 @@ const MoneyControls = () => {
 		setNumGatherers(staleGatherers => staleGatherers + 1)
 	}
 	const addMoney = (funds = 1) => setMoney(staleMoney => staleMoney + funds)
-	const calculateGathererIncome = (): number => numGatherers * GATHERER_INCOME * (gatherROILevel + 1)
-	const collectFromGatherers = () => addMoney(calculateGathererIncome())
+	const calculateGathererIncome = (): number => GATHERER_INCOME * (gatherROILevel + 1)
+	const calculateTotalGathererIncome = (): number => numGatherers * calculateGathererIncome()
+	const collectFromGatherers = () => addMoney(calculateTotalGathererIncome())
 	const executeGatherTick = () => {
 		if (numGatherers < 1) {
 			return
@@ -91,9 +92,8 @@ const MoneyControls = () => {
 				{numGatherers < 1
 					? null
 					: <article>
-						<p>Gatherers: {numGatherers}</p>
-						<p>Gatherer Level: {gatherROILevel}</p>
-						<p>Gatherer Income = ${calculateGathererIncome()}</p>
+						<p>Gatherers: {numGatherers} ({monify(calculateTotalGathererIncome())} per collection)</p>
+						<p>Gatherer Level: {gatherROILevel} ({monify(calculateGathererIncome())} per gatherer)</p>
 						<button className="upgrade"
 							disabled={money < getGathererUpgradeCost()}
 							onClick={() => { handleUpgradeGatherers() }}>Upgrade Gatherers ({getGathererUpgradeCost()})</button>
