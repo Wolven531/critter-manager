@@ -7,6 +7,7 @@ import {
 	GATHERER_COST,
 	GATHERER_INCOME,
 	GATHERER_INITIAL_TICK,
+	GATHERER_MAX_SPEED,
 	GATHERER_TICK_RATE,
 	GATHERER_TIME_SECONDS
 } from '../../constants'
@@ -58,6 +59,9 @@ const MoneyControls = () => {
 		setGatherIncomeLevel(staleGatherROILevel => staleGatherROILevel + 1)
 	}
 	const handleUpgradeGatherSpeed = () => {
+		if (gatherSpeedLevel >= GATHERER_MAX_SPEED) {
+			return
+		}
 		addMoney(-1 * calcGatherSpeedUpgradeCost())
 		setGatherSpeedLevel(staleGatherSpeedLevel => staleGatherSpeedLevel + 1)
 	}
@@ -100,7 +104,7 @@ const MoneyControls = () => {
 					: <article>
 						<p>Gatherers: {numGatherers} ({monify(calcGatherTotalIncome())} per collection)</p>
 						<p>Gatherer Income Level: {gatherROILevel} ({monify(calcGatherIncome())} per gatherer)</p>
-						<p>Gatherer Speed Level: {gatherSpeedLevel} (every {calcGatherTime().toFixed(2)} ms)</p>
+						<p>Gatherer Speed Level: {gatherSpeedLevel} / {GATHERER_MAX_SPEED} (every {calcGatherTime().toFixed(2)} ms)</p>
 						<button className="upgrade"
 							disabled={money < calcGatherIncomeUpgradeCost()}
 							onClick={() => { handleUpgradeGatherIncome() }}>
@@ -108,7 +112,7 @@ const MoneyControls = () => {
 						</button>
 						<br />
 						<button className="upgrade"
-							disabled={money < calcGatherSpeedUpgradeCost()}
+							disabled={money < calcGatherSpeedUpgradeCost() || gatherSpeedLevel >= GATHERER_MAX_SPEED}
 							onClick={() => { handleUpgradeGatherSpeed() }}>
 								Upgrade Gather Speed ({monify(calcGatherSpeedUpgradeCost())})
 						</button>
