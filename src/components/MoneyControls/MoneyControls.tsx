@@ -36,6 +36,7 @@ const MoneyControls = () => {
 		setNumGatherers(staleGatherers => staleGatherers + 1)
 	}
 	const addMoney = (funds = 1) => setMoney(staleMoney => staleMoney + funds)
+	const calculateGatherCollectionTime = (): number => 1000 / GATHERER_TICK_RATE / gatherSpeedLevel
 	const calculateGathererIncome = (): number => GATHERER_INCOME * (gatherROILevel + 1)
 	const calculateTotalGathererIncome = (): number => numGatherers * calculateGathererIncome()
 	const collectFromGatherers = () => addMoney(calculateTotalGathererIncome())
@@ -75,7 +76,7 @@ const MoneyControls = () => {
 	// // NOTE: empty (no arg) to track nothing, fires on mount/unmount
 	// useEffect(handleMounted, [])
 
-	useInterval(executeGatherTick, 1000 / GATHERER_TICK_RATE / gatherSpeedLevel)
+	useInterval(executeGatherTick, calculateGatherCollectionTime())
 	useInterval(() => AutoSave.saveToLocal(gatherROILevel, gatherSpeedLevel, money, numGatherers), 1000)
 
 	return (
@@ -93,7 +94,8 @@ const MoneyControls = () => {
 					? null
 					: <article>
 						<p>Gatherers: {numGatherers} ({monify(calculateTotalGathererIncome())} per collection)</p>
-						<p>Gatherer Level: {gatherROILevel} ({monify(calculateGathererIncome())} per gatherer)</p>
+						<p>Gatherer ROI Level: {gatherROILevel} ({monify(calculateGathererIncome())} per gatherer)</p>
+						<p>Gatherer Speed Level: {gatherSpeedLevel} (every {calculateGatherCollectionTime()} ms)</p>
 						<button className="upgrade"
 							disabled={money < getGathererUpgradeCost()}
 							onClick={() => { handleUpgradeGatherers() }}>Upgrade Gatherers ({getGathererUpgradeCost()})</button>
