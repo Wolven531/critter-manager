@@ -20,7 +20,7 @@
 		},
 		"object-literal-key-quotes": false,
 		"ordered-imports": [true, {
-			"grouped-imports": true,
+			"grouped-imports": false,
 			"import-sources-order": "lowercase-first",
 			"module-source-path": "full",
 			"named-imports-order": "lowercase-first"
