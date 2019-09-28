@@ -26,7 +26,7 @@ import './MoneyControls.scss'
 
 const MoneyControls = () => {
 	const [gathererTick, setGathererTick] = useState(GATHERER_INITIAL_TICK)
-	const [gatherROILevel, setGatherIncomeLevel] = useState(initGatherROILevel)
+	const [gatherIncomeLevel, setGatherIncomeLevel] = useState(initGatherROILevel)
 	const [gatherSpeedLevel, setGatherSpeedLevel] = useState(initGatherSpeedLevel)
 	const [isShowingModal, setIsShowingModal] = useState(true)
 	const [money, setMoney] = useState(initMoney)
@@ -38,8 +38,8 @@ const MoneyControls = () => {
 	}
 	const addMoney = (funds = 1) => setMoney(staleMoney => staleMoney + funds)
 	const calcGatherTime = (): number => 1000 / GATHERER_TICK_RATE / gatherSpeedLevel
-	const calcGatherIncome = (): number => GATHERER_INCOME * (gatherROILevel + 1)
-	const calcGatherIncomeUpgradeCost = (): number => Math.pow(gatherROILevel + 1, 2) * 33
+	const calcGatherIncome = (): number => GATHERER_INCOME * (gatherIncomeLevel + 1)
+	const calcGatherIncomeUpgradeCost = (): number => Math.pow(gatherIncomeLevel + 1, 2) * 33
 	const calcGatherSpeedUpgradeCost = (): number => Math.pow(gatherSpeedLevel + 1, 3) * 66
 	const calcGatherTotalIncome = (): number => numGatherers * calcGatherIncome()
 	const collectFromGatherers = () => addMoney(calcGatherTotalIncome())
@@ -56,7 +56,7 @@ const MoneyControls = () => {
 	}
 	const handleUpgradeGatherIncome = () => {
 		addMoney(-1 * calcGatherIncomeUpgradeCost())
-		setGatherIncomeLevel(staleGatherROILevel => staleGatherROILevel + 1)
+		setGatherIncomeLevel(staleGatherIncomeLevel => staleGatherIncomeLevel + 1)
 	}
 	const handleUpgradeGatherSpeed = () => {
 		if (gatherSpeedLevel >= GATHERER_MAX_SPEED) {
@@ -86,7 +86,7 @@ const MoneyControls = () => {
 	// useEffect(handleMounted, [])
 
 	useInterval(executeGatherTick, calcGatherTime())
-	useInterval(() => AutoSave.saveToLocal(gatherROILevel, gatherSpeedLevel, money, numGatherers), 1000)
+	useInterval(() => AutoSave.saveToLocal(gatherIncomeLevel, gatherSpeedLevel, money, numGatherers), 1000)
 
 	return (
 		<article className="money-controls">
@@ -103,12 +103,12 @@ const MoneyControls = () => {
 					? null
 					: <article>
 						<p>Gatherers: {numGatherers} ({monify(calcGatherTotalIncome())} per collection)</p>
-						<p>Gatherer Income Level: {gatherROILevel} ({monify(calcGatherIncome())} per gatherer)</p>
+						<p>Gatherer Income Level: {gatherIncomeLevel} ({monify(calcGatherIncome())} per gatherer)</p>
 						<p>Gatherer Speed Level: {gatherSpeedLevel} / {GATHERER_MAX_SPEED} (every {calcGatherTime().toFixed(2)} ms)</p>
 						<button className="upgrade"
 							disabled={money < calcGatherIncomeUpgradeCost()}
 							onClick={() => { handleUpgradeGatherIncome() }}>
-								Upgrade Gather ROI ({monify(calcGatherIncomeUpgradeCost())})
+								Upgrade Gather Income ({monify(calcGatherIncomeUpgradeCost())})
 						</button>
 						<br />
 						<button className="upgrade"
