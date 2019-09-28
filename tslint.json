@@ -19,6 +19,12 @@
 			"severity": "error"
 		},
 		"object-literal-key-quotes": false,
+		"ordered-imports": [true, {
+			"grouped-imports": true,
+			"import-sources-order": "lowercase-first",
+			"module-source-path": "full",
+			"named-imports-order": "lowercase-first"
+		}],
 		"quotemark": {
 			"options": ["jsx-double", "single"],
 			"severity": "error"
