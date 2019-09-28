@@ -11,6 +11,7 @@ import {
 	GATHERER_TIME_SECONDS
 } from '../../constants'
 
+import { Modal } from '../../components/Modal/Modal'
 import { AutoSave } from '../../model/AutoSave'
 import {
 	initGatherROILevel,
@@ -18,7 +19,6 @@ import {
 	initMoney,
 	initNumGatherers
 } from '../../state/initializers'
-import { Modal } from '../../components/Modal/Modal'
 import { monify } from '../utils'
 
 import './MoneyControls.scss'
