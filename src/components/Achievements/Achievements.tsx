@@ -4,8 +4,11 @@ import { monify } from '../utils'
 
 import './Achievements.scss'
 
+const ACHIEVEMENTS_GATHERER = 'gatherer-achievements'
+const ACHIEVEMENTS_MONEY = 'money-achievements'
+
 const Achievements = () => {
-	const [activeAchievements, setActiveAchievements] = useState('money-achievements')
+	const [activeAchievements, setActiveAchievements] = useState(ACHIEVEMENTS_MONEY)
 
 	return (
 		<article className="achievements">
@@ -15,13 +18,13 @@ const Achievements = () => {
 				</section>
 				<section className="box sidebar">
 					<ul>
-						<li onClick={() => setActiveAchievements('money-achievements')}>Money</li>
-						<li onClick={() => setActiveAchievements('gatherer-achievements')}>Gatherers</li>
+						<li onClick={() => setActiveAchievements(ACHIEVEMENTS_MONEY)}>Money</li>
+						<li onClick={() => setActiveAchievements(ACHIEVEMENTS_GATHERER)}>Gatherers</li>
 					</ul>
 				</section>
 				<section className="box content">
 					<ul className={'achievement-list money-achievements'.concat(
-						activeAchievements === 'money-achievements' ? ' active' : '')}>
+						activeAchievements === ACHIEVEMENTS_MONEY ? ' active' : '')}>
 						<li>Collect {monify(100)}</li>
 						<li>Collect {monify(1000)}</li>
 						<li>Collect {monify(10000)}</li>
@@ -29,7 +32,7 @@ const Achievements = () => {
 						<li>Collect {monify(1000000)}</li>
 					</ul>
 					<ul className={'achievement-list gatherer-achievements'.concat(
-						activeAchievements === 'gatherer-achievements' ? ' active' : '')}>
+						activeAchievements === ACHIEVEMENTS_GATHERER ? ' active' : '')}>
 						<li>Collect 1 gatherer</li>
 						<li>Collect 5 gatherers</li>
 						<li>Collect 10 gatherers</li>
