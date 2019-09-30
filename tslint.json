@@ -23,7 +23,7 @@
 			"grouped-imports": false,
 			"import-sources-order": "lowercase-first",
 			"module-source-path": "full",
-			"named-imports-order": "lowercase-first"
+			"named-imports-order": "case-insensitive"
 		}],
 		"quotemark": {
 			"options": ["jsx-double", "single"],
