@@ -12,6 +12,7 @@ import {
 	GATHERER_TIME_SECONDS
 } from '../../constants'
 
+import { Achievements } from '../../components/Achievements/Achievements'
 import { Modal } from '../../components/Modal/Modal'
 import { AutoSave } from '../../model/AutoSave'
 import {
@@ -128,6 +129,7 @@ const MoneyControls = () => {
 					disabled={money < GATHERER_COST}
 					onClick={() => { addGatherer() }}>Buy Gatherer ({monify(GATHERER_COST)})</button>
 			</section>
+			<Achievements />
 		</article>
 	)
 }
