@@ -23,16 +23,22 @@ const Achievements = () => {
 					</ul>
 				</section>
 				<section className="box content">
-					<ul className={'achievement-list money-achievements'.concat(
-						activeAchievements === ACHIEVEMENTS_MONEY ? ' active' : '')}>
+					<ul className={[
+						'achievement-list',
+						ACHIEVEMENTS_MONEY,
+						activeAchievements === ACHIEVEMENTS_MONEY ? ' active' : ''
+					].join(' ')}>
 						<li>Collect {monify(100)}</li>
 						<li>Collect {monify(1000)}</li>
 						<li>Collect {monify(10000)}</li>
 						<li>Collect {monify(100000)}</li>
 						<li>Collect {monify(1000000)}</li>
 					</ul>
-					<ul className={'achievement-list gatherer-achievements'.concat(
-						activeAchievements === ACHIEVEMENTS_GATHERER ? ' active' : '')}>
+					<ul className={[
+						'achievement-list',
+						ACHIEVEMENTS_MONEY,
+						activeAchievements === ACHIEVEMENTS_GATHERER ? ' active' : ''
+					].join(' ')}>
 						<li>Collect 1 gatherer</li>
 						<li>Collect 5 gatherers</li>
 						<li>Collect 10 gatherers</li>
