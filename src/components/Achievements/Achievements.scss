@@ -48,8 +48,18 @@
 				display: none;
 
 				&.active {
+					align-items: stretch;
 					display: flex;
 					flex-direction: column;
+					justify-content: center;
+					
+					li {
+						border: 1px solid #fff;
+						margin: 5px auto;
+						padding: 5px;
+						text-align: center;
+						width: 250px;
+					}
 				}
 			}
 		}
