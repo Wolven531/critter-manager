@@ -59,6 +59,10 @@
 						padding: 5px;
 						text-align: center;
 						width: 250px;
+
+						&.completed {
+							text-decoration-line: line-through;
+						}
 					}
 				}
 			}
