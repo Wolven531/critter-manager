@@ -1,9 +1,35 @@
+import { useState } from 'react'
+
 import {
+	STORAGEKEY_ACHIEVEMENT_LEVEL_GATHER,
+	STORAGEKEY_ACHIEVEMENT_LEVEL_MONEY,
 	STORAGEKEY_GATHERCOUNT,
 	STORAGEKEY_GATHERINCOMELEVEL,
 	STORAGEKEY_GATHERSPEEDLEVEL,
 	STORAGEKEY_MONEY
 } from '../constants'
+
+const initAchievements = (achievementType: string): any[] => {
+	let achieveStr: string | null = null
+
+	switch(achievementType) {
+		case 'gather':
+			achieveStr = window.localStorage.getItem(STORAGEKEY_ACHIEVEMENT_LEVEL_GATHER)
+			break
+		case 'money':
+			achieveStr = window.localStorage.getItem(STORAGEKEY_ACHIEVEMENT_LEVEL_MONEY)
+			break
+		default:
+			break
+	}
+
+	if (!achieveStr || achieveStr.length < 1) {
+		// 	return 0
+		return useState(0)
+	}
+	// return parseInt(achieveStr, 10)
+	return useState(parseInt(achieveStr, 10))
+}
 
 const initGatherCount = (): number => {
 	const gathererStr = window.localStorage.getItem(STORAGEKEY_GATHERCOUNT)
@@ -38,6 +64,7 @@ const initMoney = (): number => {
 }
 
 export {
+	initAchievements,
 	initGatherCount,
 	initGatherIncomeLevel,
 	initGatherSpeedLevel,
