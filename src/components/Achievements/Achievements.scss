@@ -1,7 +1,5 @@
 .achievements {
 	.wrapper {
-		// background-color: rgba(220,220,220,.5);
-		// border: 1px solid #333;
 		color: #fff;
 		display: grid;
 		min-height: 200px;
@@ -9,7 +7,6 @@
 		grid-gap: 10px; // obsolete, but provided for backwards compat
 		gap: 10px;
 		grid-template-areas:
-			// "....... header header"
 			"header header header"
 			"sidebar content content";
 		grid-template-columns: repeat(2, 200px) 1fr;
