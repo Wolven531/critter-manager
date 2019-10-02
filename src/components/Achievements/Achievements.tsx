@@ -13,8 +13,6 @@ const Achievements = () => {
 	const [activeAchievements, setActiveAchievements] = useState(ACHIEVEMENTS_MONEY)
 	const [achievementsGatherLevel] = initAchievements('gather')
 	const [achievementsMoneyLevel] = initAchievements('money')
-	// const [achievementsGatherLevel, setAchievementsGatherLevel] = useState(() => initAchievements('gather'))
-	// const [achievementsMoneyLevel, setAchievementsMoneyLevel] = useState(() => initAchievements('money'))
 
 	return (
 		<article className="achievements">
